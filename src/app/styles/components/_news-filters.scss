@@ -1,0 +1,39 @@
+.news-filters {
+  @include card-base;
+  padding: $spacing-4;
+  position: sticky;
+  top: $spacing-4;
+  z-index: 10;
+
+  .filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $spacing-4;
+  }
+
+  .date-input-wrapper {
+    position: relative;
+
+    .date-input-icon {
+      position: absolute;
+      left: $spacing-3;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $text-muted;
+    }
+
+    .date-input {
+      @include input-base;
+      padding-left: 2.5rem;
+      min-width: 10rem;
+    }
+  }
+
+  .clear-filters-btn {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+  }
+}

@@ -1,0 +1,79 @@
+.skeleton {
+  @include card-base;
+  position: relative;
+
+  &--featured {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .skeleton-content {
+    padding: $spacing-6;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+    .skeleton-image {
+      aspect-ratio: 16/9;
+      width: 100%;
+      background-color: #e5e7eb;
+      border-radius: $border-radius-lg;
+      margin-bottom: $spacing-4;
+    }
+
+    .skeleton-text {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-2;
+
+      .skeleton-line {
+        height: 0.75rem;
+        background-color: #e5e7eb;
+        border-radius: $border-radius-sm;
+
+        &--short {
+          width: 60%;
+        }
+
+        &--medium {
+          width: 80%;
+        }
+
+        &--full {
+          width: 100%;
+        }
+      }
+
+      .skeleton-title {
+        height: 1.5rem;
+        background-color: #e5e7eb;
+        border-radius: $border-radius-sm;
+        margin: $spacing-3 0;
+
+        &--featured {
+          height: 2rem;
+        }
+      }
+
+      .skeleton-meta {
+        display: flex;
+        gap: $spacing-4;
+        margin-top: $spacing-4;
+
+        .skeleton-meta-item {
+          height: 0.75rem;
+          width: 4rem;
+          background-color: #e5e7eb;
+          border-radius: $border-radius-sm;
+        }
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}

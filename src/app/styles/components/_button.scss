@@ -1,0 +1,46 @@
+.button {
+  @include button-base;
+
+  &--primary {
+    background-color: $primary-color;
+    color: $text-white;
+
+    &:hover:not(:disabled) {
+      background-color: $primary-hover;
+    }
+  }
+
+  &--secondary {
+    background-color: $secondary-color;
+    color: $text-primary;
+
+    &:hover:not(:disabled) {
+      background-color: $secondary-hover;
+    }
+  }
+
+  &--ghost {
+    background-color: transparent;
+    color: $text-secondary;
+
+    &:hover:not(:disabled) {
+      background-color: $secondary-color;
+      color: $text-primary;
+    }
+  }
+
+  &--sm {
+    padding: $spacing-1 * 1.5 $spacing-3;
+    font-size: 0.875rem;
+  }
+
+  &--md {
+    padding: $spacing-2 $spacing-4;
+    font-size: 0.875rem;
+  }
+
+  &--lg {
+    padding: $spacing-2 * 1.25 $spacing-5;
+    font-size: 1rem;
+  }
+}
