@@ -3,10 +3,10 @@ import { useAppDispatch, useAppSelector } from '../../../redux/store/hooks';
 import { NavItem } from './NavItem';
 
 const navItems = [
-  { icon: 'Newspaper', label: 'feed', id: 'feed' },
-  { icon: 'Bookmark', label: 'favorite authors', id: 'authors' },
-  { icon: 'Hash', label: 'favorite categories', id: 'categories' },
-  { icon: 'Globe', label: 'favorite sources', id: 'sources' },
+  { icon: 'IconNews', label: 'feed', id: 'feed' },
+  { icon: 'IconBookmark', label: 'favorite authors', id: 'authors' },
+  { icon: 'IconHash', label: 'favorite categories', id: 'categories' },
+  { icon: 'IconGlobe', label: 'favorite sources', id: 'sources' },
 ] as const;
 
 interface NavItemsProps {

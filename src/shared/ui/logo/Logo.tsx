@@ -1,9 +1,9 @@
-import { Newspaper } from 'lucide-react';
+import { IconNews } from '@tabler/icons-react';
 
 export const Logo = () => {
   return (
     <a href="/" className="logo">
-      <Newspaper size={24} />
+      <IconNews size={24} />
       IN
     </a>
   );

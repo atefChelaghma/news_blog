@@ -1,5 +1,3 @@
-import { X, Calendar } from 'lucide-react';
-
 import { Button } from '../../../shared/ui/button/Button';
 import { Select } from '../../../shared/ui/select/Select';
 import { useAppDispatch, useAppSelector } from '../../../redux/store/hooks';
@@ -10,6 +8,7 @@ import {
   toggleCategory,
   toggleSource,
 } from '../../../redux/features/news';
+import { IconX } from '@tabler/icons-react';
 
 const sources: { id: NewsSource; label: string }[] = [
   { id: 'newsapi', label: 'NewsAPI' },
@@ -61,7 +60,6 @@ export function NewsFilters() {
         </Select>
 
         <div className="date-input-wrapper">
-          <Calendar className="date-input-icon" size={16} />
           <input
             type="date"
             value={filters.dateFrom || ''}
@@ -81,7 +79,7 @@ export function NewsFilters() {
           className="clear-filters-btn"
         >
           Clear Filters
-          <X size={16} />
+          <IconX size={16} />
         </Button>
       </div>
     </div>

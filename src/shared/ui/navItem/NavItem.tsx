@@ -1,6 +1,5 @@
-import * as Icons from 'lucide-react';
 import { cn } from '../../../lib/utils';
-import { NavItemProps } from './types';
+import { ICONS, NavItemProps } from './types';
 
 export function NavItem({
   id,
@@ -10,7 +9,7 @@ export function NavItem({
   onClick,
   isMobile = false,
 }: NavItemProps) {
-  const Icon = Icons[IconName] as React.ElementType;
+  const Icon = ICONS[IconName] as React.ElementType;
   return (
     <button
       key={id}

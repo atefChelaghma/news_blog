@@ -1,6 +1,6 @@
 import React from 'react';
-import { ChevronDown } from 'lucide-react';
 import { cn } from '../../../lib/utils';
+import { IconChevronDown } from '@tabler/icons-react';
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
@@ -14,7 +14,7 @@ export function Select({ label, className, children, ...props }: SelectProps) {
         <select className={cn('select', className)} {...props}>
           {children}
         </select>
-        <ChevronDown className="select-icon" size={16} />
+        <IconChevronDown className="select-icon" size={16} />
       </div>
     </div>
   );

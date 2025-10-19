@@ -1,7 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-
-// import { setSearch, toggleMobileMenu, toggleSearch } from '../../entities/news';
 import { NavItems } from '../ui/navItem';
 import { Logo } from '../ui/logo';
 import { SearchInput } from '../ui/search';
@@ -9,6 +6,7 @@ import { SearchInput } from '../ui/search';
 import { setSearch, toggleMobileMenu } from '../../redux/features/news';
 import { useAppDispatch, useAppSelector } from '../../redux/store/hooks';
 import { clearSearch } from '../../redux/features/news/newsSlice';
+import { IconMenu2, IconX } from '@tabler/icons-react';
 
 function useDebounce(value: string, delay: number) {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -71,7 +69,7 @@ export function Header() {
               onClick={() => dispatch(toggleMobileMenu())}
               className="mobile-menu-btn"
             >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMobileMenuOpen ? <IconX size={24} /> : <IconMenu2 size={24} />}
             </button>
           </div>
         </div>
@@ -90,7 +88,7 @@ export function Header() {
         {isMobileMenuOpen && (
           <div className="mobile-menu">
             <nav className="mobile-nav">
-              <NavItems isMobile={true} />
+              <IconMenu2 />
             </nav>
           </div>
         )}

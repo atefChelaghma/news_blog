@@ -1,4 +1,4 @@
-import { Bookmark, Hash, Globe } from 'lucide-react';
+import { IconBookmark, IconGlobe, IconHash } from '@tabler/icons-react';
 
 export interface Article {
   id: string;
@@ -19,9 +19,9 @@ export interface ArticleCardProps {
 }
 
 export const FAVORITE_TYPES = [
-  { key: 'authors', icon: Bookmark },
-  { key: 'categories', icon: Hash },
-  { key: 'sources', icon: Globe },
+  { key: 'authors', icon: IconBookmark },
+  { key: 'categories', icon: IconHash },
+  { key: 'sources', icon: IconGlobe },
 ] as const;
 
 export interface ArticleCardSkeletonProps {

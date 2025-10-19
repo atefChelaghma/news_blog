@@ -1,5 +1,3 @@
-// import { Search } from 'lucide-react';
-
 // interface SearchInputProps {
 //   value: string;
 //   onChange: (value: string) => void;
@@ -29,7 +27,7 @@
 // }
 
 import React, { useState, useCallback } from 'react';
-import { Search, X } from 'lucide-react';
+import { IconSearch, IconX } from '@tabler/icons-react';
 
 interface SearchProps {
   onSearch?: (query: string) => void;
@@ -85,7 +83,10 @@ export const SearchInput: React.FC<SearchProps> = ({
             disabled={!searchValue.trim()}
             aria-label="Submit search"
           >
-            <Search className="search__icon search__icon--search" size={20} />
+            <IconSearch
+              className="search__icon search__icon--search"
+              size={20}
+            />
           </button>
           <input
             type="text"
@@ -101,7 +102,7 @@ export const SearchInput: React.FC<SearchProps> = ({
               onClick={() => onClear?.()}
               aria-label="Clear search"
             >
-              <X className="search__icon search__icon--clear" size={18} />
+              <IconX className="search__icon search__icon--clear" size={18} />
             </button>
           )}
         </div>
