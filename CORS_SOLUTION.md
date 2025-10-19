@@ -5,6 +5,7 @@
 The application was experiencing CORS (Cross-Origin Resource Sharing) errors when trying to access external news APIs directly from the browser. This is a security feature that prevents web applications from making requests to different domains without proper permissions.
 
 **Error Message:**
+
 ```
 Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at https://content.guardianapis.com/search?api-key=e939cc43-d6a6-438e-acff-b65e02b0aff6&q=&show-fields=all&page-size=10. (Reason: CORS header 'Access-Control-Allow-Origin' missing). Status code: 401.
 ```
@@ -47,8 +48,8 @@ Updated the API service to handle failures gracefully:
 
 ```typescript
 const promises = filters.sources
-  .filter((source) => fetchers[source])
-  .map(async (source) => {
+  .filter(source => fetchers[source])
+  .map(async source => {
     try {
       return await fetchers[source](filters);
     } catch (error) {
@@ -76,9 +77,9 @@ const isDev = import.meta.env.DEV;
 
 const getBaseURL = (service: string, originalURL: string) => {
   if (isDev) {
-    return `/api/${service}`;  // Use proxy in development
+    return `/api/${service}`; // Use proxy in development
   }
-  return originalURL;  // Direct URL in production (with fallback)
+  return originalURL; // Direct URL in production (with fallback)
 };
 ```
 
@@ -87,19 +88,24 @@ const getBaseURL = (service: string, originalURL: string) => {
 For production deployment, consider these options:
 
 ### Option 1: Backend API Proxy
+
 Create a backend service that:
+
 - Handles API calls server-side
 - Implements proper authentication
 - Returns data to the frontend
 - Avoids CORS entirely
 
 ### Option 2: CORS Proxy Service
+
 Use a reliable CORS proxy service:
+
 - `https://cors-anywhere.herokuapp.com/` (public, rate-limited)
 - `https://allorigins.hexlet.app/` (alternative)
 - Deploy your own CORS proxy
 
 ### Option 3: Server-Side Rendering (SSR)
+
 - Use Next.js, Nuxt.js, or similar SSR framework
 - API calls happen server-side during render
 - No CORS issues since server-to-server calls are allowed
@@ -121,7 +127,7 @@ Use a reliable CORS proxy service:
    - May fall back to mock data due to CORS
    - App remains functional and demonstrates UI/UX
 
-3. **Error Simulation**: 
+3. **Error Simulation**:
    - Disable network to test mock data fallback
    - Invalid API keys to test error handling
 

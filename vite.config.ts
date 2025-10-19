@@ -12,17 +12,17 @@ export default defineConfig({
       '/api/newsapi': {
         target: 'https://newsapi.org/v2',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/newsapi/, ''),
+        rewrite: path => path.replace(/^\/api\/newsapi/, ''),
       },
       '/api/guardian': {
         target: 'https://content.guardianapis.com',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/guardian/, ''),
+        rewrite: path => path.replace(/^\/api\/guardian/, ''),
       },
       '/api/nyt': {
         target: 'https://api.nytimes.com/svc/search/v2',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/nyt/, ''),
+        rewrite: path => path.replace(/^\/api\/nyt/, ''),
       },
     },
   },

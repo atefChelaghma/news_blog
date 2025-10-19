@@ -5,11 +5,13 @@ This document summarizes the migration from axios + React Query to Redux Toolkit
 ## Migration Overview
 
 ### Previous Architecture:
+
 - **axios**: For HTTP client requests
 - **React Query**: For data fetching, caching, and state management
 - **Separate API layer**: `src/lib/api.ts` with axios configuration
 
 ### New Architecture:
+
 - **Native Fetch API**: For HTTP requests (no axios dependency)
 - **Redux Toolkit createAsyncThunk**: For async operations and state management
 - **Integrated API logic**: All API functions moved to Redux slice
@@ -18,6 +20,7 @@ This document summarizes the migration from axios + React Query to Redux Toolkit
 ## Key Changes Made
 
 ### 1. Dependencies Removed
+
 ```json
 // Removed from package.json
 "@tanstack/react-query": "^5.24.1"
@@ -27,6 +30,7 @@ This document summarizes the migration from axios + React Query to Redux Toolkit
 ### 2. Redux Slice Enhanced
 
 **Added async thunk:**
+
 ```typescript
 export const fetchNews = createAsyncThunk(
   'news/fetchNews',
@@ -37,6 +41,7 @@ export const fetchNews = createAsyncThunk(
 ```
 
 **Enhanced state interface:**
+
 ```typescript
 interface NewsState {
   // ... existing state
@@ -47,10 +52,11 @@ interface NewsState {
 ```
 
 **Added extraReducers:**
+
 ```typescript
-extraReducers: (builder) => {
+extraReducers: builder => {
   builder
-    .addCase(fetchNews.pending, (state) => {
+    .addCase(fetchNews.pending, state => {
       state.isLoading = true;
       state.error = null;
     })
@@ -64,33 +70,35 @@ extraReducers: (builder) => {
       state.error = action.payload as string;
       state.articles = [];
     });
-}
+};
 ```
 
 ### 3. API Migration: Axios → Fetch
 
 **Before (axios):**
+
 ```typescript
 const clients = {
   newsapi: axios.create({
-    baseURL: "https://newsapi.org/v2",
+    baseURL: 'https://newsapi.org/v2',
     params: { apiKey: NEWS_API_KEY },
-  })
+  }),
 };
 
-const { data } = await clients.newsapi.get("/everything", {
-  params: { q: query }
+const { data } = await clients.newsapi.get('/everything', {
+  params: { q: query },
 });
 ```
 
 **After (fetch):**
+
 ```typescript
 async function fetchFromAPI(url: string, params: Record<string, string>) {
   const searchParams = new URLSearchParams();
   Object.entries(params).forEach(([key, value]) => {
     if (value) searchParams.append(key, value);
   });
-  
+
   const response = await fetch(`${url}?${searchParams.toString()}`);
   return response.json();
 }
@@ -99,32 +107,34 @@ async function fetchFromAPI(url: string, params: Record<string, string>) {
 ### 4. Component Updates
 
 **NewsFeed.tsx - Before:**
+
 ```typescript
-import { useQuery } from "@tanstack/react-query";
-import { fetchNews } from "../lib/api";
+import { useQuery } from '@tanstack/react-query';
+import { fetchNews } from '../lib/api';
 
 const {
   data: articles,
   isLoading,
   error,
 } = useQuery({
-  queryKey: ["news", filters],
+  queryKey: ['news', filters],
   queryFn: () => fetchNews(filters),
-  enabled: activeTab === "feed",
+  enabled: activeTab === 'feed',
 });
 ```
 
 **NewsFeed.tsx - After:**
+
 ```typescript
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { fetchNews } from "../store/newsSlice";
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { fetchNews } from '../store/newsSlice';
 
 const dispatch = useAppDispatch();
-const { articles, isLoading, error } = useAppSelector((state) => state.news);
+const { articles, isLoading, error } = useAppSelector(state => state.news);
 
 useEffect(() => {
-  if (activeTab === "feed") {
+  if (activeTab === 'feed') {
     dispatch(fetchNews(filters));
   }
 }, [dispatch, filters, activeTab]);
@@ -133,6 +143,7 @@ useEffect(() => {
 ### 5. App.tsx Simplification
 
 **Before:**
+
 ```typescript
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -150,6 +161,7 @@ function App() {
 ```
 
 **After:**
+
 ```typescript
 function App() {
   return (
@@ -163,26 +175,31 @@ function App() {
 ## Benefits of Redux Thunk Migration
 
 ### 1. **Reduced Bundle Size**
+
 - Removed axios (~13.3KB)
 - Removed React Query (~47KB)
 - **Total reduction: ~60KB** (before gzip)
 
 ### 2. **Simplified Architecture**
+
 - Single source of truth for all state
 - No need to sync React Query cache with Redux
 - Unified error handling and loading states
 
 ### 3. **Better TypeScript Integration**
+
 - Full type safety with createAsyncThunk
 - Typed payload and error handling
 - Better IntelliSense support
 
 ### 4. **Native Web API Usage**
+
 - Uses modern Fetch API (built into browsers)
 - No external HTTP library dependencies
 - Better performance and smaller footprint
 
 ### 5. **Centralized Async Logic**
+
 - All API calls managed through Redux
 - Consistent error handling patterns
 - Easier to test and mock
@@ -190,8 +207,9 @@ function App() {
 ## Technical Implementation Details
 
 ### Error Handling Strategy
+
 ```typescript
-const promises = filters.sources.map(async (source) => {
+const promises = filters.sources.map(async source => {
   try {
     return await fetchers[source](filters);
   } catch (error) {
@@ -202,11 +220,13 @@ const promises = filters.sources.map(async (source) => {
 ```
 
 ### CORS Proxy Integration
+
 - Maintains the same CORS proxy solution
 - Works with both development and production environments
 - Graceful fallback to mock data when APIs fail
 
 ### State Management Flow
+
 1. Component dispatches `fetchNews(filters)`
 2. Redux Thunk handles async operation
 3. Loading state automatically managed
@@ -216,11 +236,13 @@ const promises = filters.sources.map(async (source) => {
 ## Performance Comparison
 
 ### Build Size Comparison:
+
 - **Before**: 973.82 kB (209.76 kB gzipped)
 - **After**: 907.32 kB (187.90 kB gzipped)
 - **Improvement**: -66.5 kB (-21.86 kB gzipped)
 
 ### Runtime Performance:
+
 - ✅ Faster initial load (smaller bundle)
 - ✅ Better memory usage (no React Query cache)
 - ✅ Reduced network overhead
@@ -229,11 +251,13 @@ const promises = filters.sources.map(async (source) => {
 ## Development Experience
 
 ### Debugging:
+
 - Redux DevTools show complete async action flow
 - Time-travel debugging for API calls
 - Better error tracking and state inspection
 
 ### Code Organization:
+
 - All async logic in one place (newsSlice.ts)
 - Consistent patterns for all API calls
 - Easier to add new endpoints

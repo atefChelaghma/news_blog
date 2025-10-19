@@ -1,6 +1,6 @@
-import { Header } from "../../shared/components";
-import { NewsFilters } from "../../features/news-filter";
-import { NewsFeed } from "../../widgets/news-feed";
+import { Header } from '../../shared/components';
+import { NewsFilters } from '../../features/news-filter';
+import { NewsFeed } from '../../widgets/news-feed';
 
 export function MainPage() {
   return (

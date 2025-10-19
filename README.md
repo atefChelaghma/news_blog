@@ -5,10 +5,12 @@ A modern news aggregation application built with React, Redux Toolkit, and SCSS 
 ## Prerequisites
 
 ### For Local Development
+
 - **Node.js** (v18 or higher)
 - **npm** or **yarn**
 
 ### For Docker Deployment
+
 - **Docker** (v20.10 or higher)
 - **Docker Compose** (v2.0 or higher)
 
@@ -17,6 +19,7 @@ A modern news aggregation application built with React, Redux Toolkit, and SCSS 
 ### Option 1: Local Development
 
 #### 1. Install Dependencies
+
 ```bash
 npm install
 # or
@@ -24,14 +27,17 @@ yarn install
 ```
 
 #### 2. Start Development Server
+
 ```bash
 npm run dev
 # or
 yarn dev
 ```
+
 Opens [http://localhost:5174](http://localhost:5174)
 
 #### 3. Build for Production
+
 ```bash
 npm run build
 # or
@@ -41,6 +47,7 @@ yarn build
 ### Option 2: Docker Deployment 🐳
 
 #### Quick Start (Production)
+
 ```bash
 # Build and run production container
 docker-compose up --build
@@ -48,9 +55,11 @@ docker-compose up --build
 # Or using npm scripts
 npm run docker:prod
 ```
+
 Access the application at [http://localhost:3000](http://localhost:3000)
 
 #### Development with Docker
+
 ```bash
 # Run development container with hot reload
 docker-compose --profile dev up --build
@@ -58,11 +67,13 @@ docker-compose --profile dev up --build
 # Or using npm scripts
 npm run docker:dev
 ```
+
 Access the development server at [http://localhost:5174](http://localhost:5174)
 
 #### Manual Docker Commands
 
 ##### Build Docker Image
+
 ```bash
 docker build -t modern-news-aggregator .
 
@@ -71,6 +82,7 @@ npm run docker:build
 ```
 
 ##### Run Docker Container
+
 ```bash
 docker run -p 3000:80 modern-news-aggregator
 
@@ -79,6 +91,7 @@ npm run docker:run
 ```
 
 ##### Stop and Clean Up
+
 ```bash
 # Stop containers
 docker-compose down
@@ -90,6 +103,7 @@ npm run docker:clean
 ## Docker Architecture
 
 ### Production Setup
+
 - **Multi-stage build**: Optimized for production
 - **Nginx**: Serves static files with compression and caching
 - **Health checks**: Ensures container reliability
@@ -97,6 +111,7 @@ npm run docker:clean
 - **Port**: 3000 (external) → 80 (internal)
 
 ### Development Setup
+
 - **Hot reload**: Live code updates
 - **Volume mounting**: Local code changes reflected immediately
 - **Port**: 5174 (external) → 5174 (internal)
@@ -105,12 +120,14 @@ npm run docker:clean
 ## Available Scripts
 
 ### Local Development
+
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
 
 ### Docker Scripts
+
 - `npm run docker:build` - Build Docker image
 - `npm run docker:run` - Run production container
 - `npm run docker:dev` - Run development container
@@ -147,6 +164,7 @@ src/
 ```
 
 ### Tech Stack
+
 - **Frontend**: React 18, TypeScript
 - **State Management**: Redux Toolkit with Redux Thunk
 - **Styling**: SCSS with modular architecture
@@ -157,17 +175,20 @@ src/
 ## Troubleshooting
 
 ### Local Development Issues
+
 - **Port 5174 in use**: Kill the process or use a different port
 - **Dependencies issues**: Delete `node_modules` and run `npm install`
 - **Build fails**: Check TypeScript errors with `npm run lint`
 
 ### Docker Issues
+
 - **Docker build fails**: Ensure Docker is running and has sufficient resources
 - **Port conflicts**: Change ports in `docker-compose.yml`
 - **Container won't start**: Check logs with `docker-compose logs`
 - **Permission issues**: Ensure Docker has file system access
 
 ### Common Docker Commands
+
 ```bash
 # View running containers
 docker ps
@@ -185,6 +206,7 @@ docker system prune -a
 ## Performance
 
 ### Production Optimizations
+
 - **Gzip compression** enabled
 - **Static asset caching** (1 year)
 - **Multi-stage Docker build** (smaller image size)
@@ -192,6 +214,7 @@ docker system prune -a
 - **Health checks** for container monitoring
 
 ### Bundle Analysis
+
 ```bash
 npm run build
 # Check dist/ folder size and structure

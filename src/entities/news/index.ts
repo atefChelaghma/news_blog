@@ -2,7 +2,7 @@
 export { ArticleCard } from './ui/ArticleCard';
 export { ArticleCardSkeleton } from './ui/ArticleCardSkeleton';
 export type { Article, NewsFilters, NewsSource, Category } from './model/news';
-export { 
+export {
   fetchNews,
   setSearch,
   toggleSource,
@@ -12,6 +12,6 @@ export {
   setActiveTab,
   toggleFavorite,
   toggleMobileMenu,
-  toggleSearch
+  toggleSearch,
 } from './model/newsSlice';
 export { default as newsReducer } from './model/newsSlice';

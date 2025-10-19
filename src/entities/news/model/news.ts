@@ -11,7 +11,14 @@ export interface Article {
 }
 
 export type NewsSource = 'newsapi' | 'guardian' | 'nytimes';
-export type Category = 'general' | 'business' | 'technology' | 'sports' | 'entertainment' | 'science' | 'health';
+export type Category =
+  | 'general'
+  | 'business'
+  | 'technology'
+  | 'sports'
+  | 'entertainment'
+  | 'science'
+  | 'health';
 
 export interface NewsFilters {
   search: string;

@@ -7,12 +7,12 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
-export function Button({ 
-  variant = 'primary', 
-  size = 'md', 
-  className, 
-  children, 
-  ...props 
+export function Button({
+  variant = 'primary',
+  size = 'md',
+  className,
+  children,
+  ...props
 }: ButtonProps) {
   return (
     <button

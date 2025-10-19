@@ -7,10 +7,12 @@ This document summarizes the complete migration from Zustand to Redux Toolkit an
 ### State Management: Zustand → Redux Toolkit
 
 **Before:**
+
 - Used Zustand store (`useNewsStore`) for state management
 - Simple, lightweight state management solution
 
 **After:**
+
 - Migrated to Redux Toolkit with proper TypeScript support
 - Created structured Redux store with slices and hooks
 - Maintained same functionality with better developer experience
@@ -18,10 +20,12 @@ This document summarizes the complete migration from Zustand to Redux Toolkit an
 ### Styling: Tailwind CSS → SCSS
 
 **Before:**
+
 - Used Tailwind CSS utility classes
 - CSS-in-JS approach with utility-first methodology
 
 **After:**
+
 - Migrated to modular SCSS architecture
 - Created reusable mixins and variables
 - Component-scoped styling with BEM-like methodology
@@ -31,6 +35,7 @@ This document summarizes the complete migration from Zustand to Redux Toolkit an
 ### 1. Package Dependencies
 
 **Removed:**
+
 - `zustand`
 - `tailwindcss`
 - `autoprefixer`
@@ -39,6 +44,7 @@ This document summarizes the complete migration from Zustand to Redux Toolkit an
 - `shadcn-ui`
 
 **Added:**
+
 - `@reduxjs/toolkit`
 - `react-redux`
 - `sass`
@@ -72,6 +78,7 @@ src/styles/
 ### 4. Component Updates
 
 All components have been updated to:
+
 - Use Redux hooks (`useAppDispatch`, `useAppSelector`) instead of Zustand
 - Use SCSS classes instead of Tailwind utility classes
 - Maintain the same functionality and user experience
@@ -79,16 +86,19 @@ All components have been updated to:
 ### 5. Key Files Modified
 
 #### Store Migration:
+
 - `src/store/newsStore.ts` → `src/store/newsSlice.ts`
 - Added `src/store/store.ts` and `src/store/hooks.ts`
 
 #### Main Application:
+
 - `src/App.tsx` - Added Redux Provider
 - `src/main.tsx` - Import SCSS instead of CSS
 
 #### Components:
+
 - `src/components/Header.tsx` - Redux hooks + SCSS classes
-- `src/components/NewsFilters.tsx` - Redux hooks + SCSS classes  
+- `src/components/NewsFilters.tsx` - Redux hooks + SCSS classes
 - `src/components/NewsFeed.tsx` - Redux hooks + SCSS classes
 - `src/components/ArticleCard.tsx` - Redux hooks + SCSS classes
 - `src/components/ui/Button.tsx` - SCSS classes
@@ -96,6 +106,7 @@ All components have been updated to:
 - `src/components/loader/ArticleCardSkeleton.tsx` - SCSS classes
 
 #### Styling:
+
 - Removed `src/index.css`, `tailwind.config.js`, `postcss.config.js`
 - Added complete SCSS architecture in `src/styles/`
 
@@ -107,6 +118,7 @@ All components have been updated to:
 ## Benefits of Migration
 
 ### Redux Toolkit Benefits:
+
 1. **Better DevTools**: Redux DevTools for debugging
 2. **Time Travel Debugging**: Ability to replay actions
 3. **Predictable State Updates**: Immutable updates with Immer
@@ -114,6 +126,7 @@ All components have been updated to:
 5. **Scalability**: Easier to scale with more complex state logic
 
 ### SCSS Benefits:
+
 1. **Better Organization**: Modular, component-scoped styles
 2. **Variables & Mixins**: Reusable design tokens and patterns
 3. **Nested Selectors**: Better CSS organization
@@ -123,6 +136,7 @@ All components have been updated to:
 ## Development Experience
 
 The application maintains the same functionality while providing:
+
 - Better debugging capabilities with Redux DevTools
 - More maintainable and scalable codebase
 - Improved developer experience with TypeScript integration
@@ -147,7 +161,7 @@ npm run dev
 # Production build
 npm run build
 
-# Preview production build  
+# Preview production build
 npm run preview
 ```
 

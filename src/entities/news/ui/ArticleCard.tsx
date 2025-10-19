@@ -1,20 +1,20 @@
-import { format } from "date-fns";
-import { Bookmark, Hash, Globe } from "lucide-react";
-import { Article } from "../model/news";
-import { cn } from "../../../lib/utils";
-import { useAppDispatch, useAppSelector } from "../../../app/store/hooks";
-import { toggleFavorite } from "../model/newsSlice";
+import { format } from 'date-fns';
+import { Bookmark, Hash, Globe } from 'lucide-react';
+import { Article } from '../model/news';
+import { cn } from '../../../lib/utils';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
+import { toggleFavorite } from '../model/newsSlice';
 
 interface ArticleCardProps {
   article: Article;
   featured?: boolean;
-  activeTab?: "authors" | "categories" | "sources";
+  activeTab?: 'authors' | 'categories' | 'sources';
 }
 
 const FAVORITE_TYPES = [
-  { key: "authors", icon: Bookmark },
-  { key: "categories", icon: Hash },
-  { key: "sources", icon: Globe },
+  { key: 'authors', icon: Bookmark },
+  { key: 'categories', icon: Hash },
+  { key: 'sources', icon: Globe },
 ];
 
 export function ArticleCard({
@@ -23,9 +23,8 @@ export function ArticleCard({
   activeTab,
 }: ArticleCardProps) {
   const dispatch = useAppDispatch();
-  const { favoriteAuthors, favoriteCategories, favoriteSources } = useAppSelector(
-    (state) => state.news
-  );
+  const { favoriteAuthors, favoriteCategories, favoriteSources } =
+    useAppSelector(state => state.news);
 
   const favoritesMap = {
     authors: favoriteAuthors,
@@ -45,10 +44,7 @@ export function ArticleCard({
     dispatch(toggleFavorite({ type, article }));
   };
 
-  const getButtonClass = (
-    type: keyof typeof favoritesMap,
-    isFav: boolean
-  ) => {
+  const getButtonClass = (type: keyof typeof favoritesMap, isFav: boolean) => {
     const isActiveTab = activeTab === type;
     if (isFav) return 'favorite-button favorite-button--favorited';
     if (isActiveTab) return 'favorite-button favorite-button--active-tab';
@@ -57,16 +53,13 @@ export function ArticleCard({
 
   return (
     <article
-      className={cn(
-        "article-card",
-        featured ? "article-card--featured" : ""
-      )}
+      className={cn('article-card', featured ? 'article-card--featured' : '')}
     >
       <div className="favorite-buttons">
         {FAVORITE_TYPES.map(({ key, icon: Icon }) => (
           <button
             key={key}
-            onClick={(e) =>
+            onClick={e =>
               handleToggleFavorite(key as keyof typeof favoritesMap, e)
             }
             className={getButtonClass(
@@ -87,10 +80,7 @@ export function ArticleCard({
       >
         <div className="article-image">
           {article.imageUrl ? (
-            <img
-              src={article.imageUrl}
-              alt={article.title}
-            />
+            <img src={article.imageUrl} alt={article.title} />
           ) : (
             <div className="placeholder" />
           )}
@@ -99,25 +89,21 @@ export function ArticleCard({
 
         <div className="article-content">
           <div className="metadata">
-            <span className="category-badge">
-              {article.category}
-            </span>
+            <span className="category-badge">{article.category}</span>
             <span className="source">{article.source}</span>
           </div>
 
           <h2
             className={cn(
-              "article-title",
-              featured ? "article-title--featured" : "article-title--normal"
+              'article-title',
+              featured ? 'article-title--featured' : 'article-title--normal'
             )}
           >
             {article.title}
           </h2>
 
           {featured && (
-            <p className="article-description">
-              {article.description}
-            </p>
+            <p className="article-description">{article.description}</p>
           )}
 
           <div className="article-meta">
@@ -127,7 +113,7 @@ export function ArticleCard({
                 {article.author}
               </span>
             )}
-            <time>{format(new Date(article.publishedAt), "MMM d, yyyy")}</time>
+            <time>{format(new Date(article.publishedAt), 'MMM d, yyyy')}</time>
           </div>
         </div>
       </a>

@@ -1,14 +1,19 @@
-import { useState, useEffect } from "react";
-import * as Icons from "lucide-react";
-import { useAppDispatch, useAppSelector } from "../../app/store/hooks";
-import { setSearch, setActiveTab, toggleMobileMenu, toggleSearch } from "../../entities/news";
-import { cn } from "../../lib/utils";
+import { useState, useEffect } from 'react';
+import * as Icons from 'lucide-react';
+import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
+import {
+  setSearch,
+  setActiveTab,
+  toggleMobileMenu,
+  toggleSearch,
+} from '../../entities/news';
+import { cn } from '../../lib/utils';
 
 const navItems = [
-  { icon: "Newspaper", label: "feed", id: "feed" },
-  { icon: "Bookmark", label: "favorite authors", id: "authors" },
-  { icon: "Hash", label: "favorite categories", id: "categories" },
-  { icon: "Globe", label: "favorite sources", id: "sources" },
+  { icon: 'Newspaper', label: 'feed', id: 'feed' },
+  { icon: 'Bookmark', label: 'favorite authors', id: 'authors' },
+  { icon: 'Hash', label: 'favorite categories', id: 'categories' },
+  { icon: 'Globe', label: 'favorite sources', id: 'sources' },
 ] as const;
 
 function useDebounce(value: string, delay: number) {
@@ -44,7 +49,13 @@ function NavItem({
       onClick={onClick}
       className={cn(
         isMobile ? 'mobile-nav-item' : 'nav-item',
-        isActive ? (isMobile ? 'mobile-nav-item--active' : 'nav-item--active') : (isMobile ? 'mobile-nav-item--inactive' : 'nav-item--inactive')
+        isActive
+          ? isMobile
+            ? 'mobile-nav-item--active'
+            : 'nav-item--active'
+          : isMobile
+            ? 'mobile-nav-item--inactive'
+            : 'nav-item--inactive'
       )}
     >
       <Icon className="h-4 w-4" />
@@ -63,14 +74,17 @@ function SearchInput({
   isMobile?: boolean;
 }) {
   return (
-    <div className={isMobile ? "mobile-search-container" : "search-container"}>
-      <Icons.Search className={isMobile ? "mobile-search-icon" : "search-icon"} size={20} />
+    <div className={isMobile ? 'mobile-search-container' : 'search-container'}>
+      <Icons.Search
+        className={isMobile ? 'mobile-search-icon' : 'search-icon'}
+        size={20}
+      />
       <input
         type="text"
         placeholder="Search the news..."
         value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className={isMobile ? "mobile-search-input" : "search-input"}
+        onChange={e => onChange(e.target.value)}
+        className={isMobile ? 'mobile-search-input' : 'search-input'}
       />
     </div>
   );
@@ -78,9 +92,11 @@ function SearchInput({
 
 export function Header() {
   const dispatch = useAppDispatch();
-  const { activeTab, isMobileMenuOpen, isSearchOpen } = useAppSelector((state) => state.news);
+  const { activeTab, isMobileMenuOpen, isSearchOpen } = useAppSelector(
+    state => state.news
+  );
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   useEffect(() => {
@@ -117,7 +133,7 @@ export function Header() {
             <div className="search-container">
               <SearchInput
                 value={searchTerm}
-                onChange={(value) => setSearchTerm(value)}
+                onChange={value => setSearchTerm(value)}
               />
             </div>
 
@@ -145,7 +161,7 @@ export function Header() {
           <div className="mobile-search">
             <SearchInput
               value={searchTerm}
-              onChange={(value) => setSearchTerm(value)}
+              onChange={value => setSearchTerm(value)}
               isMobile={true}
             />
           </div>

@@ -9,16 +9,9 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
 export function Select({ label, className, children, ...props }: SelectProps) {
   return (
     <div className="select-wrapper">
-      {label && (
-        <label className="select-label">
-          {label}
-        </label>
-      )}
+      {label && <label className="select-label">{label}</label>}
       <div className="select-container">
-        <select
-          className={cn('select', className)}
-          {...props}
-        >
+        <select className={cn('select', className)} {...props}>
           {children}
         </select>
         <ChevronDown className="select-icon" size={16} />

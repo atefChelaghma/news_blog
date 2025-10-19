@@ -1,29 +1,29 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../app/store/hooks";
-import { fetchNews } from "../../../entities/news";
-import { ArticleCard } from "../../../entities/news/ui/ArticleCard";
-import { ArticleCardSkeleton } from "../../../entities/news/ui/ArticleCardSkeleton";
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
+import { fetchNews } from '../../../entities/news';
+import { ArticleCard } from '../../../entities/news/ui/ArticleCard';
+import { ArticleCardSkeleton } from '../../../entities/news/ui/ArticleCardSkeleton';
 
 export function NewsFeed() {
   const dispatch = useAppDispatch();
-  const { 
-    filters, 
-    activeTab, 
-    favoriteAuthors, 
-    favoriteCategories, 
+  const {
+    filters,
+    activeTab,
+    favoriteAuthors,
+    favoriteCategories,
     favoriteSources,
     articles,
     isLoading,
-    error
-  } = useAppSelector((state) => state.news);
+    error,
+  } = useAppSelector(state => state.news);
 
   useEffect(() => {
-    if (activeTab === "feed") {
+    if (activeTab === 'feed') {
       dispatch(fetchNews(filters));
     }
   }, [dispatch, filters, activeTab]);
 
-  if (activeTab !== "feed") {
+  if (activeTab !== 'feed') {
     const favoritesMap = {
       authors: favoriteAuthors,
       categories: favoriteCategories,
@@ -42,8 +42,12 @@ export function NewsFeed() {
 
     return (
       <div className="news-feed">
-        {favorites.map((article) => (
-          <ArticleCard key={article.id} article={article} activeTab={activeTab as "authors" | "categories" | "sources"} />
+        {favorites.map(article => (
+          <ArticleCard
+            key={article.id}
+            article={article}
+            activeTab={activeTab as 'authors' | 'categories' | 'sources'}
+          />
         ))}
       </div>
     );
