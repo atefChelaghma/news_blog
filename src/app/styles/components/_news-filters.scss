@@ -1,6 +1,11 @@
 .news-filters {
   @include card-base;
+  border: unset;
+  border-top: 1px solid $border-color;
+  box-shadow: unset;
+  border-radius: unset;
   padding: $spacing-4;
+  margin-top: $spacing-2;
   position: sticky;
   top: $spacing-4;
   z-index: 10;

@@ -35,16 +35,11 @@
   .logo {
     display: flex;
     align-items: center;
-    gap: $spacing-2;
-    font-weight: 700;
-    font-size: 1.25rem;
     color: white;
     text-decoration: none;
     background-color: red;
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
+    padding: 0.3rem;
+    padding: $spacing-2;
   }
 
   .nav {
@@ -86,12 +81,11 @@
   .header-right {
     display: flex;
     align-items: center;
-    gap: $spacing-3;
+    justify-content: space-between;
   }
 
   .search-container {
     position: relative;
-    display: none;
 
     @include respond-to(md) {
       display: block;
@@ -113,18 +107,22 @@
   }
 
   .mobile-menu-btn {
-    @include respond-to(lg) {
-      display: none;
-    }
-
     background: none;
-    border: none;
+    border: 2px solid rgb(201, 201, 201);
+    border-radius: 5px;
+    display: flex;
+
     padding: $spacing-2;
+    margin-left: $spacing-3;
     color: $text-secondary;
     cursor: pointer;
 
     &:hover {
       color: $text-primary;
+    }
+
+    @include respond-to(lg) {
+      display: none;
     }
   }
 

@@ -8,7 +8,7 @@ export function Home() {
       <Header />
       <main className="main-content">
         <div className="content-wrapper">
-          <NewsFilters />
+          {/* <NewsFilters /> */}
           <NewsFeed />
         </div>
       </main>

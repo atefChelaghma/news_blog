@@ -4,7 +4,6 @@ export const Logo = () => {
   return (
     <a href="/" className="logo">
       <IconNews size={24} />
-      IN
     </a>
   );
 };

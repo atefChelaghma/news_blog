@@ -6,7 +6,9 @@ import { SearchInput } from '../ui/search';
 import { setSearch, toggleMobileMenu } from '../../redux/features/news';
 import { useAppDispatch, useAppSelector } from '../../redux/store/hooks';
 import { clearSearch } from '../../redux/features/news/newsSlice';
-import { IconMenu2, IconX } from '@tabler/icons-react';
+import { IconFilter, IconMenu2, IconX } from '@tabler/icons-react';
+import { NewsFeed } from '../../widgets/news-feed';
+import { NewsFilters } from '../../features/news-filter';
 
 function useDebounce(value: string, delay: number) {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -21,14 +23,12 @@ function useDebounce(value: string, delay: number) {
 
 export function Header() {
   const dispatch = useAppDispatch();
-  const { isMobileMenuOpen, isSearchOpen, filters } = useAppSelector(
-    state => state.news
-  );
+  const { filters } = useAppSelector(state => state.news);
 
   const { search } = filters;
 
   const [searchTerm, setSearchTerm] = useState('');
-  console.log(searchTerm);
+
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   useEffect(() => {
@@ -53,45 +53,19 @@ export function Header() {
               <SearchInput
                 value={search}
                 onChange={value => dispatch(setSearch(value))}
-                // onChange={value => setSearchTerm(value)}
                 onClear={() => dispatch(clearSearch())}
               />
             </div>
-
-            {/* <button
-              onClick={() => dispatch(toggleSearch())}
-              className="search-toggle-btn"
-            >
-              <Search size={24} />
-            </button> */}
 
             <button
               onClick={() => dispatch(toggleMobileMenu())}
               className="mobile-menu-btn"
             >
-              {isMobileMenuOpen ? <IconX size={24} /> : <IconMenu2 size={24} />}
+              <IconFilter size={24} />
             </button>
           </div>
         </div>
-
-        {isSearchOpen && (
-          <div className="mobile-search">
-            <SearchInput
-              value={search}
-              onChange={value => setSearchTerm(value)}
-              onClear={() => dispatch(clearSearch())}
-              // isMobile={true}
-            />
-          </div>
-        )}
-
-        {isMobileMenuOpen && (
-          <div className="mobile-menu">
-            <nav className="mobile-nav">
-              <IconMenu2 />
-            </nav>
-          </div>
-        )}
+        <NewsFilters />
       </div>
     </header>
   );
