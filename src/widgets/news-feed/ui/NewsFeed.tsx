@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
-import { fetchNews } from '../../../entities/news';
-import { ArticleCard } from '../../../entities/news/ui/ArticleCard';
-import { ArticleCardSkeleton } from '../../../entities/news/ui/ArticleCardSkeleton';
+import { useAppDispatch, useAppSelector } from '../../../redux/store/hooks';
+import { fetchNews } from '../../../redux/features/news';
+import {
+  ArticleCard,
+  ArticleCardSkeleton,
+} from '../../../features/article-card';
 
 export function NewsFeed() {
   const dispatch = useAppDispatch();

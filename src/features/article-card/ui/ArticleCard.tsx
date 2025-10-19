@@ -1,21 +1,8 @@
 import { format } from 'date-fns';
-import { Bookmark, Hash, Globe } from 'lucide-react';
-import { Article } from '../model/news';
 import { cn } from '../../../lib/utils';
-import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
-import { toggleFavorite } from '../model/newsSlice';
-
-interface ArticleCardProps {
-  article: Article;
-  featured?: boolean;
-  activeTab?: 'authors' | 'categories' | 'sources';
-}
-
-const FAVORITE_TYPES = [
-  { key: 'authors', icon: Bookmark },
-  { key: 'categories', icon: Hash },
-  { key: 'sources', icon: Globe },
-];
+import { Article, ArticleCardProps, FAVORITE_TYPES } from './types';
+import { toggleFavorite } from '../../../redux/features/news';
+import { useAppDispatch, useAppSelector } from '../../../redux/store/hooks';
 
 export function ArticleCard({
   article,
@@ -80,7 +67,7 @@ export function ArticleCard({
       >
         <div className="article-image">
           {article.imageUrl ? (
-            <img src={article.imageUrl} alt={article.title} />
+            <img src={article.imageUrl} alt={article.title} loading="lazy" />
           ) : (
             <div className="placeholder" />
           )}

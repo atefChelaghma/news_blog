@@ -1,34 +1,18 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { Category, NewsFilters, NewsSource, Article } from './news';
-
-const STORAGE_KEYS = {
-  AUTHORS: 'favoriteAuthors',
-  CATEGORIES: 'favoriteCategories',
-  SOURCES: 'favoriteSources',
-} as const;
-
-const TABS = {
-  FEED: 'feed',
-  AUTHORS: 'authors',
-  CATEGORIES: 'categories',
-  SOURCES: 'sources',
-} as const;
-
-type TabType = (typeof TABS)[keyof typeof TABS];
-type FavoriteType = 'authors' | 'categories' | 'sources';
-
-interface NewsState {
-  filters: NewsFilters;
-  activeTab: TabType;
-  isMobileMenuOpen: boolean;
-  isSearchOpen: boolean;
-  favoriteAuthors: Article[];
-  favoriteCategories: Article[];
-  favoriteSources: Article[];
-  articles: Article[];
-  isLoading: boolean;
-  error: string | null;
-}
+import {
+  STORAGE_KEYS,
+  TABS,
+  TabType,
+  FavoriteType,
+  NewsState,
+  NewsApiArticle,
+  GuardianApiArticle,
+  NYTApiArticle,
+  NewsFilters,
+  NewsSource,
+  Category,
+} from './types';
+import { Article } from '../../../features/article-card/ui/types';
 
 const initialFilters: NewsFilters = {
   search: '',
@@ -99,17 +83,8 @@ async function fetchFromNewsApi(filters: NewsFilters): Promise<Article[]> {
     to: filters.dateTo || '',
     language: 'en',
     sortBy: 'publishedAt',
-    pageSize: '10',
+    pageSize: '100',
   })) as { articles: NewsApiArticle[] };
-
-  type NewsApiArticle = {
-    url: string;
-    title: string;
-    description: string;
-    urlToImage?: string;
-    author?: string;
-    publishedAt: string;
-  };
 
   return data.articles.map(
     (article: NewsApiArticle): Article => ({
@@ -141,23 +116,11 @@ async function fetchFromGuardian(filters: NewsFilters): Promise<Article[]> {
     'from-date': filters.dateFrom || '',
     'to-date': filters.dateTo || '',
     'show-fields': 'all',
-    'page-size': '10',
+    'page-size': '100',
   })) as {
     response: {
       results: GuardianApiArticle[];
     };
-  };
-
-  type GuardianApiArticle = {
-    id: string;
-    webTitle: string;
-    fields?: {
-      trailText?: string;
-      thumbnail?: string;
-      byline?: string;
-    };
-    webUrl: string;
-    webPublicationDate: string;
   };
 
   return data.response.results.map(
@@ -193,16 +156,6 @@ async function fetchFromNYT(filters: NewsFilters): Promise<Article[]> {
     response: {
       docs: NYTApiArticle[];
     };
-  };
-
-  type NYTApiArticle = {
-    _id: string;
-    headline: { main: string };
-    abstract: string;
-    web_url: string;
-    multimedia: { url: string }[];
-    byline?: { original?: string };
-    pub_date: string;
   };
 
   return data.response.docs.slice(0, 10).map(
@@ -343,6 +296,9 @@ const newsSlice = createSlice({
     setSearch: (state, action: PayloadAction<string>) => {
       state.filters.search = action.payload;
     },
+    clearSearch: state => {
+      state.filters.search = '';
+    },
     toggleSource: (state, action: PayloadAction<NewsSource>) => {
       state.filters.sources = [action.payload];
     },
@@ -410,6 +366,7 @@ const newsSlice = createSlice({
 
 export const {
   setSearch,
+  clearSearch,
   toggleSource,
   toggleCategory,
   setDateRange,

@@ -38,8 +38,13 @@
     gap: $spacing-2;
     font-weight: 700;
     font-size: 1.25rem;
-    color: $primary-color;
+    color: white;
     text-decoration: none;
+    background-color: red;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
   }
 
   .nav {

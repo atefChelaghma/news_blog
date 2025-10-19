@@ -1,15 +1,15 @@
 import { X, Calendar } from 'lucide-react';
-import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
+
+import { Button } from '../../../shared/ui/button/Button';
+import { Select } from '../../../shared/ui/select/Select';
+import { useAppDispatch, useAppSelector } from '../../../redux/store/hooks';
+import { Category, NewsSource } from '../../../redux/features/news/types';
 import {
-  toggleSource,
-  toggleCategory,
-  setDateRange,
   resetFilters,
-  Category,
-  NewsSource,
-} from '../../../entities/news';
-import { Button } from '../../../shared/ui/Button';
-import { Select } from '../../../shared/ui/Select';
+  setDateRange,
+  toggleCategory,
+  toggleSource,
+} from '../../../redux/features/news';
 
 const sources: { id: NewsSource; label: string }[] = [
   { id: 'newsapi', label: 'NewsAPI' },

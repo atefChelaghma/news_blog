@@ -2,7 +2,7 @@ import { Header } from '../../shared/components';
 import { NewsFilters } from '../../features/news-filter';
 import { NewsFeed } from '../../widgets/news-feed';
 
-export function MainPage() {
+export function Home() {
   return (
     <div className="app">
       <Header />

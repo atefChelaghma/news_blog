@@ -1,8 +1,5 @@
 import { cn } from '../../../lib/utils';
-
-interface ArticleCardSkeletonProps {
-  featured?: boolean;
-}
+import { ArticleCardSkeletonProps } from './types';
 
 export function ArticleCardSkeleton({ featured }: ArticleCardSkeletonProps) {
   return (
