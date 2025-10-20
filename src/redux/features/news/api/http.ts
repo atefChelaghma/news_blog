@@ -8,7 +8,10 @@ export async function fetchFromAPI(
   });
 
   const fullUrl = `${url}?${searchParams.toString()}`;
-  const response = await fetch(fullUrl);
+  const response = await fetch(fullUrl, {
+    credentials: 'omit',
+    mode: 'cors',
+  });
 
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);

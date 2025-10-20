@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { cn } from '../../../lib/utils';
+import { cn } from '../../../shared/lib/utils';
 import { Article, ArticleCardProps, FAVORITE_TYPES } from './types';
 import { toggleFavorite } from '../../../redux/features/news';
 import { useAppDispatch, useAppSelector } from '../../../redux/store/hooks';

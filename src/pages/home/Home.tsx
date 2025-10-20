@@ -1,4 +1,4 @@
-import { Header } from '../../shared/components';
+import { Header } from '../../widgets/header';
 import { NewsFeed } from '../../widgets/news-feed';
 
 export function Home() {

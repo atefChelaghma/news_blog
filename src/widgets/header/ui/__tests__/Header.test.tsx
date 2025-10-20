@@ -2,37 +2,37 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Header } from '../Header';
 
-jest.mock('../../hooks', () => ({
+jest.mock('../../../../shared/hooks', () => ({
   useDebounce: (value: string) => value,
 }));
 
 const mockDispatch = jest.fn();
 const mockUseAppSelector = jest.fn();
 
-jest.mock('../../../redux/store/hooks', () => ({
+jest.mock('../../../../redux/store/hooks', () => ({
   useAppDispatch: () => mockDispatch,
   useAppSelector: () => mockUseAppSelector(),
 }));
 
-jest.mock('../../../redux/features/news', () => ({
+jest.mock('../../../../redux/features/news', () => ({
   setSearch: (value: string) => ({ type: 'news/setSearch', payload: value }),
   fetchNews: () => ({ type: 'news/fetchNews' }),
 }));
 
-jest.mock('../../../redux/features/news/newsSlice', () => ({
+jest.mock('../../../../redux/features/news/newsSlice', () => ({
   clearSearch: () => ({ type: 'news/clearSearch' }),
   fetchNews: () => ({ type: 'news/fetchNews' }),
 }));
 
-jest.mock('../../ui/logo', () => ({
+jest.mock('../../../../shared/ui/logo', () => ({
   Logo: () => <div data-testid="logo">Logo</div>,
 }));
 
-jest.mock('../../ui/navItem', () => ({
+jest.mock('../../../../shared/ui/navItem', () => ({
   NavItems: () => <div data-testid="nav-items">Nav</div>,
 }));
 
-jest.mock('../../ui/search', () => ({
+jest.mock('../../../../shared/ui/search', () => ({
   SearchInput: ({
     value,
     onChange,
@@ -53,7 +53,7 @@ jest.mock('../../ui/search', () => ({
   ),
 }));
 
-jest.mock('../../../features/news-filter', () => ({
+jest.mock('../../../../features/news-filter', () => ({
   NewsFilters: () => <div data-testid="news-filters">Filters</div>,
 }));
 

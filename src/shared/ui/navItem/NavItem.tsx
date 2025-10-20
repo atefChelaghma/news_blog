@@ -1,4 +1,4 @@
-import { cn } from '../../../lib/utils';
+import { cn } from '../../lib/utils';
 import { ICONS, NavItemProps } from './types';
 
 export function NavItem({

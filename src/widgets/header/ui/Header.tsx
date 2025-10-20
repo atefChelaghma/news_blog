@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
-import { NavItems } from '../ui/navItem';
-import { Logo } from '../ui/logo';
-import { SearchInput } from '../ui/search';
-import { useDebounce } from '../hooks';
+import { NavItems } from '../../../shared/ui/navItem';
+import { Logo } from '../../../shared/ui/logo';
+import { SearchInput } from '../../../shared/ui/search';
+import { useDebounce } from '../../../shared/hooks';
 
-import { setSearch } from '../../redux/features/news';
-import { useAppDispatch, useAppSelector } from '../../redux/store/hooks';
-import { clearSearch, fetchNews } from '../../redux/features/news/newsSlice';
-import { NewsFilters } from '../../features/news-filter';
+import { setSearch } from '../../../redux/features/news';
+import { useAppDispatch, useAppSelector } from '../../../redux/store/hooks';
+import { clearSearch, fetchNews } from '../../../redux/features/news/newsSlice';
+import { NewsFilters } from '../../../features/news-filter';
 
 export function Header() {
   const dispatch = useAppDispatch();

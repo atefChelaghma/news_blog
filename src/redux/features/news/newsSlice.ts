@@ -41,8 +41,7 @@ export const fetchNews = createAsyncThunk(
           try {
             const fetcher = API_FETCHERS[source as keyof typeof API_FETCHERS];
             return await fetcher(filters);
-          } catch (error) {
-            console.warn(`Failed to fetch from ${source}:`, error);
+          } catch {
             return getMockArticles(source, filters.categories[0]);
           }
         });
