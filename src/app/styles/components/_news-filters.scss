@@ -28,34 +28,6 @@
     @include input-base;
     color: $text-secondary;
     min-width: 10rem;
-
-    &::-webkit-date-and-time-value {
-      text-align: left;
-    }
-
-    // Show placeholder-like text on iOS
-    &:invalid,
-    &:not(:focus):not([value]) {
-      color: $text-secondary;
-
-      &::before {
-        content: attr(placeholder);
-        color: $text-secondary;
-        opacity: 0.7;
-      }
-    }
-
-    // Remove default appearance on iOS
-    &::-webkit-calendar-picker-indicator {
-      position: absolute;
-      right: $spacing-3;
-      cursor: pointer;
-      opacity: 0.7;
-
-      &:hover {
-        opacity: 1;
-      }
-    }
   }
 
   .clear-filters-btn {
