@@ -97,26 +97,23 @@ export async function fetchFromNYT(filters: NewsFilters): Promise<Article[]> {
     };
   };
 
-  return data.response.docs
-    .slice(0, 10)
-    .map((article: NYTApiArticle): Article => {
-      const imageUrl =
-        article.multimedia && article.multimedia.length > 0
-          ? article.multimedia[0].url
-          : undefined;
+  return data.response.docs.map((article: NYTApiArticle): Article => {
+    const imageUrl = article.multimedia?.default?.url
+      ? article.multimedia.default.url
+      : undefined;
 
-      return {
-        id: `nyt-${article._id}`,
-        title: article.headline.main,
-        description: article.abstract,
-        url: article.web_url,
-        imageUrl: imageUrl ? `https://www.nytimes.com/${imageUrl}` : undefined,
-        source: 'The New York Times',
-        category: filters.categories[0],
-        author: article.byline?.original,
-        publishedAt: article.pub_date,
-      };
-    });
+    return {
+      id: `nyt-${article._id}`,
+      title: article.headline.main,
+      description: article.abstract,
+      url: article.web_url,
+      imageUrl: imageUrl,
+      source: 'The New York Times',
+      category: filters.categories[0],
+      author: article.byline?.original,
+      publishedAt: article.pub_date,
+    };
+  });
 }
 
 export const API_FETCHERS = {

@@ -73,7 +73,15 @@ export type NYTApiArticle = {
   headline: { main: string };
   abstract: string;
   web_url: string;
-  multimedia: { url: string }[];
+  multimedia?: {
+    caption: string;
+    credit: string;
+    default: {
+      url: string;
+      height: number;
+      width: number;
+    };
+  };
   byline?: { original?: string };
   pub_date: string;
 };

@@ -46,8 +46,9 @@ const renderCard = (overrides: Partial<typeof baseArticle> = {}) =>
 describe('ArticleCard', () => {
   it('renders fallback image when imageUrl missing', () => {
     renderCard();
-    const fallbackImg = screen.getByAltText(/fallback/i);
-    expect(fallbackImg).toBeInTheDocument();
+    const fallbackImg = screen.getByAltText(baseArticle.title);
+    expect(fallbackImg).toBeTruthy();
+    expect(fallbackImg).toHaveClass('article-card__img--fallback');
   });
 
   it('renders title, badges, and date', () => {
