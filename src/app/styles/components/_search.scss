@@ -1,8 +1,6 @@
 @use '../variables' as *;
 @use '../mixins' as *;
 
-// Mobile-first Search Component Styles
-
 .search {
   width: 100%;
   max-width: 100%;
@@ -49,7 +47,6 @@
       font-size: 0.95rem;
     }
 
-    // Remove default input styling on mobile
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -102,7 +99,6 @@
       }
     }
 
-    // Better touch target for mobile
     min-width: 2.25rem;
     min-height: 2.25rem;
   }
@@ -130,14 +126,11 @@
     &:active {
       background-color: #e5e7eb;
     }
-
-    // Better touch target for mobile
     min-width: 2.25rem;
     min-height: 2.25rem;
   }
 }
 
-// Tablet styles (768px and up)
 @media (min-width: 768px) {
   .search {
     &__input {
@@ -146,11 +139,8 @@
   }
 }
 
-// Desktop styles (1024px and up)
 @media (min-width: 1024px) {
   .search {
-    // width: 100%;
-
     &__input-wrapper {
       padding: 0.5rem;
 
@@ -185,7 +175,6 @@
   }
 }
 
-// High contrast mode support
 @media (prefers-contrast: high) {
   .search {
     &__input-wrapper {
@@ -204,7 +193,6 @@
   }
 }
 
-// Reduced motion support
 @media (prefers-reduced-motion: reduce) {
   .search {
     &__input-wrapper,

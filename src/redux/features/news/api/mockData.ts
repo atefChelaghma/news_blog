@@ -1,11 +1,5 @@
 import { Article } from '../../../../features/article-card/ui/types';
 
-/**
- * Generate mock articles for fallback when API calls fail
- * @param source - The news source (newsapi, guardian, nytimes)
- * @param category - The news category
- * @returns Array of mock articles
- */
 export function getMockArticles(source: string, category: string): Article[] {
   const mockData: Record<string, Article[]> = {
     newsapi: [

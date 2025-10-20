@@ -3,11 +3,11 @@ import { NewsFeed } from '../../widgets/news-feed';
 
 export function Home() {
   return (
-    <div className="app">
+    <>
       <Header />
       <main className="main-content">
         <NewsFeed />
       </main>
-    </div>
+    </>
   );
 }

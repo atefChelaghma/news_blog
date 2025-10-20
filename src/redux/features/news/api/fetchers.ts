@@ -8,9 +8,6 @@ import {
 } from '../types';
 import { Article } from '../../../../features/article-card/ui/types';
 
-/**
- * Build search query from filters
- */
 function buildQuery(filters: NewsFilters): string {
   return [
     filters.search,
@@ -20,9 +17,6 @@ function buildQuery(filters: NewsFilters): string {
     .join(' ');
 }
 
-/**
- * Fetch articles from NewsAPI
- */
 export async function fetchFromNewsApi(
   filters: NewsFilters
 ): Promise<Article[]> {
@@ -54,9 +48,6 @@ export async function fetchFromNewsApi(
   );
 }
 
-/**
- * Fetch articles from The Guardian
- */
 export async function fetchFromGuardian(
   filters: NewsFilters
 ): Promise<Article[]> {
@@ -91,9 +82,6 @@ export async function fetchFromGuardian(
   );
 }
 
-/**
- * Fetch articles from The New York Times
- */
 export async function fetchFromNYT(filters: NewsFilters): Promise<Article[]> {
   const query = buildQuery(filters);
   const baseURL = getBaseURL('nyt', API_BASE_URLS.nyt);
@@ -126,9 +114,6 @@ export async function fetchFromNYT(filters: NewsFilters): Promise<Article[]> {
   );
 }
 
-/**
- * Map of source names to their respective fetcher functions
- */
 export const API_FETCHERS = {
   newsapi: fetchFromNewsApi,
   guardian: fetchFromGuardian,
