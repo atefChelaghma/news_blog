@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { cn } from '../../../shared/lib/utils';
 import { Article, ArticleCardProps, FAVORITE_TYPES } from './types';
-import { toggleFavorite } from '../../../redux/features/news';
+import { toggleFavorite } from '../../../redux/modules/news';
 import { useAppDispatch, useAppSelector } from '../../../redux/store/hooks';
 
 export function ArticleCard({

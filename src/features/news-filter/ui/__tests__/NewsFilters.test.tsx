@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { NewsFilters } from '../NewsFilters';
 
-// Mock Redux hooks
 const mockDispatch = jest.fn();
 const mockUseAppSelector = jest.fn();
 
@@ -11,8 +10,7 @@ jest.mock('../../../../redux/store/hooks', () => ({
   useAppSelector: () => mockUseAppSelector(),
 }));
 
-// Mock Redux actions
-jest.mock('../../../../redux/features/news', () => ({
+jest.mock('../../../../redux/modules/news', () => ({
   resetFilters: () => ({ type: 'news/resetFilters' }),
   setDateRange: (payload: unknown) => ({ type: 'news/setDateRange', payload }),
   toggleCategory: (payload: unknown) => ({

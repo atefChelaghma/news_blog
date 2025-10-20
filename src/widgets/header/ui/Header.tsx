@@ -4,9 +4,9 @@ import { Logo } from '../../../shared/ui/logo';
 import { SearchInput } from '../../../shared/ui/search';
 import { useDebounce } from '../../../shared/hooks';
 
-import { setSearch } from '../../../redux/features/news';
+import { setSearch } from '../../../redux/modules/news';
 import { useAppDispatch, useAppSelector } from '../../../redux/store/hooks';
-import { clearSearch, fetchNews } from '../../../redux/features/news/newsSlice';
+import { clearSearch, fetchNews } from '../../../redux/modules/news/newsSlice';
 import { NewsFilters } from '../../../features/news-filter';
 
 export function Header() {

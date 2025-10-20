@@ -13,7 +13,7 @@ interface Article {
   author?: string;
 }
 
-jest.mock('../../../../redux/features/news/api', () => ({
+jest.mock('../../../../redux/modules/news/api', () => ({
   newsApiService: {},
   guardianApiService: {},
   nytApiService: {},
@@ -28,7 +28,7 @@ jest.mock('../../../../redux/store/hooks', () => ({
   useAppDispatch: () => mockDispatch,
 }));
 
-jest.mock('../../../../redux/features/news/newsSlice', () => ({
+jest.mock('../../../../redux/modules/news/newsSlice', () => ({
   fetchNews: jest.fn(() => ({ type: 'news/fetchNews' })),
 }));
 

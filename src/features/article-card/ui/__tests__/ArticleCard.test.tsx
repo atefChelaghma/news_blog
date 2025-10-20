@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 const mockToggleFavorite = jest.fn();
-jest.mock('../../../../redux/features/news', () => ({
+jest.mock('../../../../redux/modules/news', () => ({
   toggleFavorite: mockToggleFavorite,
 }));
 

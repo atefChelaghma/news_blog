@@ -14,12 +14,12 @@ jest.mock('../../../../redux/store/hooks', () => ({
   useAppSelector: () => mockUseAppSelector(),
 }));
 
-jest.mock('../../../../redux/features/news', () => ({
+jest.mock('../../../../redux/modules/news', () => ({
   setSearch: (value: string) => ({ type: 'news/setSearch', payload: value }),
   fetchNews: () => ({ type: 'news/fetchNews' }),
 }));
 
-jest.mock('../../../../redux/features/news/newsSlice', () => ({
+jest.mock('../../../../redux/modules/news/newsSlice', () => ({
   clearSearch: () => ({ type: 'news/clearSearch' }),
   fetchNews: () => ({ type: 'news/fetchNews' }),
 }));

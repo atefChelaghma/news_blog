@@ -2,13 +2,13 @@ import { Button } from '../../../shared/ui/button/Button';
 import { Select } from '../../../shared/ui/select/Select';
 import { useAppDispatch, useAppSelector } from '../../../redux/store/hooks';
 import { useRef, useEffect, useState } from 'react';
-import { Category, NewsSource } from '../../../redux/features/news/types';
+import { Category, NewsSource } from '../../../redux/modules/news/types';
 import {
   resetFilters,
   setDateRange,
   toggleCategory,
   toggleSource,
-} from '../../../redux/features/news';
+} from '../../../redux/modules/news';
 import { IconX } from '@tabler/icons-react';
 
 const sources: { id: NewsSource; label: string }[] = [

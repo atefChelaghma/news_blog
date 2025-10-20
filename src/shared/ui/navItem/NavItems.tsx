@@ -1,4 +1,4 @@
-import { setActiveTab, toggleMobileMenu } from '../../../redux/features/news';
+import { setActiveTab, toggleMobileMenu } from '../../../redux/modules/news';
 import { useAppDispatch, useAppSelector } from '../../../redux/store/hooks';
 import { NavItem } from './NavItem';
 

@@ -23,6 +23,14 @@ A modern news aggregation application following Feature-Sliced Design (FSD) arch
 - **Husky** - Git hooks
 - **lint-staged** - Pre-commit linting
 
+### Testing
+
+- **Jest 29** - JavaScript testing framework
+- **React Testing Library 16** - Component testing utilities
+- **ts-jest** - TypeScript support for Jest
+- **@testing-library/jest-dom** - Custom DOM matchers
+- **@testing-library/user-event** - User interaction simulation
+
 ### Deployment
 
 - **Docker** - Containerization
@@ -93,6 +101,7 @@ Development proxy in `vite.config.ts` handles CORS:
 npm install
 npm run dev        # http://localhost:5174
 npm run build      # Production build
+npm test           # Run unit tests
 ```
 
 ### Docker Production
@@ -117,6 +126,70 @@ VITE_GUARDIAN_API_KEY=your_guardian_key
 VITE_NYT_API_KEY=your_nytimes_key
 ```
 
+## Testing
+
+### Test Coverage
+
+The project includes comprehensive unit tests using **Jest** and **React Testing Library**:
+
+- **13 test suites** with 57 tests
+- **Component testing** - All UI components (Button, Select, Search, etc.)
+- **Feature testing** - ArticleCard, NewsFilters, NewsFeed
+- **Hook testing** - useDebounce with fake timers
+- **Redux testing** - newsSlice reducers and actions
+- **Integration testing** - Widget components with mocked dependencies
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Generate coverage report
+npm test -- --coverage
+```
+
+### Test Structure
+
+Tests follow the `__tests__` convention alongside source files:
+
+```
+src/
+├── shared/
+│   ├── ui/
+│   │   └── button/
+│   │       ├── Button.tsx
+│   │       └── __tests__/
+│   │           └── Button.test.tsx
+│   └── hooks/
+│       ├── useDebounce.ts
+│       └── __tests__/
+│           └── useDebounce.test.ts
+├── features/
+│   └── article-card/
+│       └── ui/
+│           ├── ArticleCard.tsx
+│           └── __tests__/
+│               └── ArticleCard.test.tsx
+└── redux/
+    └── modules/
+        └── news/
+            ├── newsSlice.ts
+            └── __tests__/
+                └── newsSlice.test.ts
+```
+
+### Testing Principles
+
+- ✅ **No third-party mocking libraries** - Pure Jest mocks only
+- ✅ **Accessibility-first** - Using `getByRole`, `getByLabelText`
+- ✅ **User-centric** - Testing user interactions with `@testing-library/user-event`
+- ✅ **Isolated tests** - Each test suite mocks dependencies
+- ✅ **Type-safe** - Full TypeScript support in tests
+
 ## Scripts
 
 ### Development
@@ -128,6 +201,12 @@ VITE_NYT_API_KEY=your_nytimes_key
 - `prettier` - Check formatting
 - `prettier:fix` - Fix formatting
 - `format` - Fix both linting and formatting
+
+### Testing
+
+- `test` - Run all tests
+- `test:watch` - Run tests in watch mode
+- `test:coverage` - Generate coverage report
 
 ### Docker
 

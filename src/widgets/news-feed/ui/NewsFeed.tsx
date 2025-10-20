@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../redux/store/hooks';
-import { fetchNews } from '../../../redux/features/news';
+import { fetchNews } from '../../../redux/modules/news';
 import {
   ArticleCard,
   ArticleCardSkeleton,
