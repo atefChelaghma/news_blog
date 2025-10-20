@@ -1,3 +1,6 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
 .news-filters {
   @include card-base;
   border: unset;
@@ -6,9 +9,13 @@
   border-radius: unset;
   padding: $spacing-4;
   margin-top: $spacing-2;
-  position: sticky;
   top: $spacing-4;
-  z-index: 10;
+  transition: none;
+
+  &:hover {
+    box-shadow: none;
+    transform: none;
+  }
 
   .filters-container {
     display: flex;

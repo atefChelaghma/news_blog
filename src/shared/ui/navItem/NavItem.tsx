@@ -10,23 +10,19 @@ export function NavItem({
   isMobile = false,
 }: NavItemProps) {
   const Icon = ICONS[IconName] as React.ElementType;
+
   return (
     <button
       key={id}
       onClick={onClick}
       className={cn(
-        isMobile ? 'mobile-nav-item' : 'nav-item',
-        isActive
-          ? isMobile
-            ? 'mobile-nav-item--active'
-            : 'nav-item--active'
-          : isMobile
-            ? 'mobile-nav-item--inactive'
-            : 'nav-item--inactive'
+        'nav-item',
+        isMobile && 'nav-item--mobile',
+        isActive ? 'nav-item--active' : 'nav-item--inactive'
       )}
     >
-      <Icon className="h-4 w-4" />
-      <span>{label}</span>
+      <Icon className="nav-item__icon" />
+      <span className="nav-item__label">{label}</span>
     </button>
   );
 }

@@ -273,6 +273,12 @@ export const fetchNews = createAsyncThunk(
         error instanceof Error ? error.message : 'Failed to fetch news'
       );
     }
+  },
+  {
+    condition: filters => {
+      const q = (filters.search ?? '').trim();
+      return q === '' || q.length >= 3;
+    },
   }
 );
 

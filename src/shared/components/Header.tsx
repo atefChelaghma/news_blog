@@ -1,40 +1,29 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { NavItems } from '../ui/navItem';
 import { Logo } from '../ui/logo';
 import { SearchInput } from '../ui/search';
+import { useDebounce } from '../hooks';
 
 import { setSearch, toggleMobileMenu } from '../../redux/features/news';
 import { useAppDispatch, useAppSelector } from '../../redux/store/hooks';
-import { clearSearch } from '../../redux/features/news/newsSlice';
-import { IconFilter, IconMenu2, IconX } from '@tabler/icons-react';
-import { NewsFeed } from '../../widgets/news-feed';
+import { clearSearch, fetchNews } from '../../redux/features/news/newsSlice';
+import { IconFilter } from '@tabler/icons-react';
 import { NewsFilters } from '../../features/news-filter';
-
-function useDebounce(value: string, delay: number) {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  useEffect(() => {
-    const handler = setTimeout(() => setDebouncedValue(value), delay);
-    return () => clearTimeout(handler);
-  }, [value, delay]);
-
-  return debouncedValue;
-}
 
 export function Header() {
   const dispatch = useAppDispatch();
   const { filters } = useAppSelector(state => state.news);
-
   const { search } = filters;
 
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+  const debouncedSearchTerm = useDebounce(search, 300);
 
   useEffect(() => {
-    if (debouncedSearchTerm.length >= 3) {
-      dispatch(setSearch(debouncedSearchTerm));
+    const q = debouncedSearchTerm.trim();
+
+    if (q === '' || q.length >= 3) {
+      dispatch(fetchNews({ ...filters, search: q }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchTerm, dispatch]);
 
   return (

@@ -1,13 +1,16 @@
-@import 'variables';
-@import 'mixins';
-@import 'components/button';
-@import 'components/select';
-@import 'components/header';
-@import 'components/article-card';
-@import 'components/news-filters';
-@import 'components/news-feed';
-@import 'components/skeleton';
-@import 'components/search';
+@use 'variables' as *;
+@use 'mixins' as *;
+
+@use 'components/button';
+@use 'components/select';
+@use 'components/header';
+@use 'components/article-card';
+@use 'components/news-filters';
+@use 'components/news-feed';
+@use 'components/skeleton';
+@use 'components/search';
+@use 'components/logo';
+@use 'components/navItem';
 
 * {
   box-sizing: border-box;

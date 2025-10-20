@@ -1,7 +1,10 @@
-.select-wrapper {
+@use '../variables' as *;
+@use '../mixins' as *;
+
+.select {
   position: relative;
 
-  .select-label {
+  &__label {
     display: block;
     font-size: 0.875rem;
     font-weight: 500;
@@ -9,24 +12,25 @@
     margin-bottom: $spacing-1;
   }
 
-  .select-container {
+  &__container {
     position: relative;
+  }
 
-    .select {
-      @include input-base;
-      appearance: none;
-      padding-right: 2.5rem;
-      cursor: pointer;
-      background-image: none;
-    }
+  &__control {
+    @include input-base;
+    appearance: none;
+    padding-right: 2.5rem;
+    cursor: pointer;
+    background-image: none;
+    width: 100%;
+  }
 
-    .select-icon {
-      position: absolute;
-      right: $spacing-3;
-      top: 50%;
-      transform: translateY(-50%);
-      color: $text-muted;
-      pointer-events: none;
-    }
+  &__icon {
+    position: absolute;
+    right: $spacing-3;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $text-muted;
+    pointer-events: none;
   }
 }

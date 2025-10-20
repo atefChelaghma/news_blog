@@ -1,3 +1,6 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
 .skeleton {
   @include card-base;
   position: relative;

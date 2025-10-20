@@ -1,74 +1,35 @@
-// interface SearchInputProps {
-//   value: string;
-//   onChange: (value: string) => void;
-//   isMobile?: boolean;
-// }
-
-// export function SearchInput({
-//   value,
-//   onChange,
-//   isMobile = false,
-// }: SearchInputProps) {
-//   return (
-//     <div className={isMobile ? 'mobile-search-container' : 'search-container'}>
-//       <Search
-//         className={isMobile ? 'mobile-search-icon' : 'search-icon'}
-//         size={20}
-//       />
-//       <input
-//         type="text"
-//         placeholder="Search the news..."
-//         value={value}
-//         onChange={e => onChange(e.target.value)}
-//         className={isMobile ? 'mobile-search-input' : 'search-input'}
-//       />
-//     </div>
-//   );
-// }
-
-import React, { useState, useCallback } from 'react';
+import { useCallback, ChangeEvent, KeyboardEvent } from 'react';
 import { IconSearch, IconX } from '@tabler/icons-react';
+import { SearchProps } from './types';
 
-interface SearchProps {
-  onSearch?: (query: string) => void;
-  placeholder?: string;
-  value?: string;
-  onChange?: (value: string) => void;
-  className?: string;
-  onClear?: () => void;
-}
-
-export const SearchInput: React.FC<SearchProps> = ({
+export const SearchInput = ({
   onSearch,
   placeholder = 'Search articles...',
-  value: controlledValue,
+  value,
   onChange,
   className = '',
   onClear,
-}) => {
-  const [internalValue, setInternalValue] = useState('');
-
-  const isControlled = controlledValue !== undefined;
-  const searchValue = isControlled ? controlledValue : internalValue;
+}: SearchProps) => {
+  const searchValue = value ?? '';
 
   const handleInputChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = e.target.value;
-
-      if (isControlled) {
-        onChange?.(newValue);
-      } else {
-        setInternalValue(newValue);
-      }
+    (e: ChangeEvent<HTMLInputElement>) => {
+      onChange?.(e.target.value);
     },
-    [isControlled, onChange]
+    [onChange]
   );
 
   const handleSearch = useCallback(() => {
-    if (searchValue.trim()) {
-      onSearch?.(searchValue.trim());
-    }
+    const q = searchValue.trim();
+    if (q) onSearch?.(q);
   }, [searchValue, onSearch]);
+
+  const onKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') handleSearch();
+    },
+    [handleSearch]
+  );
 
   const showClearButton = searchValue.length > 0;
 
@@ -88,13 +49,16 @@ export const SearchInput: React.FC<SearchProps> = ({
               size={20}
             />
           </button>
+
           <input
             type="text"
             className="search__input"
             placeholder={placeholder}
             value={searchValue}
             onChange={handleInputChange}
+            onKeyDown={onKeyDown}
           />
+
           {showClearButton && (
             <button
               type="button"
