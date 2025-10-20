@@ -47,9 +47,8 @@
 
   .header-right {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    overflow: auto;
+    overflow-x: auto;
   }
 
   .search-container {

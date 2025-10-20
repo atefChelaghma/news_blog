@@ -1,10 +1,13 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
 .logo {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: white;
   text-decoration: none;
-  background-color: red;
+  background-color: $text-primary;
   width: 40px;
   height: 40px;
 }

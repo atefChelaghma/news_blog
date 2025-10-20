@@ -22,7 +22,7 @@
     width: 100%;
     aspect-ratio: 16/9;
     overflow: hidden;
-    background: #f3f4f6;
+    background: $text-white;
   }
 
   &__img {
@@ -108,10 +108,10 @@
     padding: 0.35rem 0.6rem;
     border-radius: 999px;
     color: #374151;
-    background: #e5e7eb;
+    background: $text-white;
 
     &--source {
-      background: #e5e7eb;
+      background: $text-white;
     }
   }
 

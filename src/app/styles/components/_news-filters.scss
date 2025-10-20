@@ -26,7 +26,7 @@
 
   .date-input {
     @include input-base;
-
+    color: $text-secondary;
     min-width: 10rem;
   }
 

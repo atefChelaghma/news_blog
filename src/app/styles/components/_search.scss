@@ -131,7 +131,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@include respond-to(md) {
   .search {
     &__input {
       font-size: 1.05rem;
@@ -139,7 +139,7 @@
   }
 }
 
-@media (min-width: 1024px) {
+@include respond-to(lg) {
   .search {
     &__input-wrapper {
       padding: 0.5rem;
@@ -171,35 +171,6 @@
       &:hover {
         background-color: #f9fafb;
       }
-    }
-  }
-}
-
-@media (prefers-contrast: high) {
-  .search {
-    &__input-wrapper {
-      border-width: 3px;
-      border-color: #000;
-
-      &:focus-within {
-        border-color: #0066cc;
-        box-shadow: 0 0 0 2px #0066cc;
-      }
-    }
-
-    &__search-btn:hover:not(:disabled) {
-      background-color: #e6f0ff;
-    }
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .search {
-    &__input-wrapper,
-    &__icon,
-    &__search-btn,
-    &__clear-btn {
-      transition: none;
     }
   }
 }
