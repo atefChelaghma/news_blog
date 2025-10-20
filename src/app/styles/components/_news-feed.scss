@@ -3,7 +3,7 @@
 
 .news-feed {
   display: grid;
-  gap: 1.5rem;
+  gap: $spacing-6;
   grid-template-columns: 1fr;
 
   @include respond-to(md) {
@@ -17,7 +17,7 @@
 
 .feed-message {
   text-align: center;
-  padding: 3rem 0;
+  padding: $spacing-12 0;
 
   &--error {
     color: $error-color;

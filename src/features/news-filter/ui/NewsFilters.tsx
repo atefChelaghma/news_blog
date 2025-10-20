@@ -1,6 +1,7 @@
 import { Button } from '../../../shared/ui/button/Button';
 import { Select } from '../../../shared/ui/select/Select';
 import { useAppDispatch, useAppSelector } from '../../../redux/store/hooks';
+import { useRef } from 'react';
 import { Category, NewsSource } from '../../../redux/features/news/types';
 import {
   resetFilters,
@@ -29,6 +30,17 @@ const categories: { id: Category; label: string }[] = [
 export function NewsFilters() {
   const dispatch = useAppDispatch();
   const { filters, activeTab } = useAppSelector(state => state.news);
+  const dateFromRef = useRef<HTMLInputElement | null>(null);
+
+  const openDateFromPicker = () => {
+    const el = dateFromRef.current;
+    if (!el) return;
+    if (typeof el.showPicker === 'function') {
+      el.showPicker();
+    } else {
+      el.focus();
+    }
+  };
 
   if (activeTab !== 'feed') {
     return null;
@@ -59,8 +71,21 @@ export function NewsFilters() {
           ))}
         </Select>
 
-        <div className="date-input-wrapper">
+        <div
+          className="date-input-wrapper"
+          onClick={openDateFromPicker}
+          role="button"
+          aria-label="Select start date"
+          tabIndex={0}
+          onKeyDown={e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              openDateFromPicker();
+            }
+          }}
+        >
           <input
+            ref={dateFromRef}
             type="date"
             value={filters.dateFrom || ''}
             onChange={e =>
@@ -69,6 +94,8 @@ export function NewsFilters() {
               )
             }
             className="date-input"
+            placeholder="From date"
+            aria-placeholder="From date"
           />
         </div>
 

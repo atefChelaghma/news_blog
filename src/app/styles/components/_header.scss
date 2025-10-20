@@ -75,7 +75,7 @@
 
   .mobile-menu-btn {
     background: none;
-    border: 2px solid rgb(201, 201, 201);
+    border: 2px solid $border-subtle;
     border-radius: 5px;
     display: flex;
     padding: $spacing-2;
@@ -139,7 +139,7 @@
   left: 0;
   right: 0;
   background-color: $bg-white;
-  border-top: 1px solid $border-color;
+  border-top: 1px solid $border-subtle;
   box-shadow: $shadow-lg;
   padding: $spacing-4;
 

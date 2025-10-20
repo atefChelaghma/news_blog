@@ -1,7 +1,7 @@
 @use '../variables' as *;
 @use '../mixins' as *;
 
-$skel-bg: #e5e7eb;
+$skel-bg: $secondary-hover;
 
 .article-card-skel {
   @include card-base;
@@ -96,7 +96,7 @@ $skel-bg: #e5e7eb;
     width: 24px;
     height: 24px;
     border-radius: 4px;
-    background: #111827;
+    background: $text-primary;
     opacity: 0.15;
     flex: 0 0 24px;
   }
