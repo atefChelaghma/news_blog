@@ -45,13 +45,14 @@ body {
   max-width: 1280px;
   margin: 0 auto;
   padding-inline: 1rem;
+  padding-block: 1rem;
 
   @include respond-to(sm) {
     padding: 0 1.5rem;
   }
 
   @include respond-to(lg) {
-    padding: 0 2rem;
+    padding-block: 3rem;
   }
 
   .content-wrapper {

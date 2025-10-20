@@ -6,9 +6,7 @@ export function Home() {
     <div className="app">
       <Header />
       <main className="main-content">
-        <div className="content-wrapper">
-          <NewsFeed />
-        </div>
+        <NewsFeed />
       </main>
     </div>
   );
