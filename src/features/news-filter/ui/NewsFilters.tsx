@@ -1,7 +1,7 @@
 import { Button } from '../../../shared/ui/button/Button';
 import { Select } from '../../../shared/ui/select/Select';
 import { useAppDispatch, useAppSelector } from '../../../redux/store/hooks';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Category, NewsSource } from '../../../redux/features/news/types';
 import {
   resetFilters,
@@ -31,6 +31,16 @@ export function NewsFilters() {
   const dispatch = useAppDispatch();
   const { filters, activeTab } = useAppSelector(state => state.news);
   const dateFromRef = useRef<HTMLInputElement | null>(null);
+  const [isIOS, setIsIOS] = useState(false);
+
+  useEffect(() => {
+    const ua = window.navigator.userAgent;
+    const platform = window.navigator.platform;
+    const iOS =
+      /iPad|iPhone|iPod/.test(ua) ||
+      (platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    setIsIOS(iOS);
+  }, []);
 
   const openDateFromPicker = () => {
     const el = dateFromRef.current;
@@ -72,7 +82,7 @@ export function NewsFilters() {
         </Select>
 
         <div
-          className="date-input-wrapper"
+          className={`date-input-wrapper${isIOS ? ' date-input-wrapper--ios' : ''}`}
           onClick={openDateFromPicker}
           role="button"
           aria-label="Select start date"
@@ -84,6 +94,9 @@ export function NewsFilters() {
             }
           }}
         >
+          {isIOS && !filters.dateFrom && (
+            <span className="date-input-placeholder">From date</span>
+          )}
           <input
             ref={dateFromRef}
             type="date"

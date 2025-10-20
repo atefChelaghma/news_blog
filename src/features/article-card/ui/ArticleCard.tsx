@@ -9,6 +9,20 @@ export function ArticleCard({
   featured,
   activeTab,
 }: ArticleCardProps) {
+  const FALLBACK_IMG = '/fallback-article.png';
+  const INLINE_SVG_FALLBACK =
+    'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360"><rect width="640" height="360" fill="%23f3f4f6"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%236b7280" font-family="Arial,sans-serif" font-size="24">No Image</text></svg>';
+
+  function handleImgError(img: HTMLImageElement) {
+    if (img.dataset.fallbackApplied) return;
+    img.dataset.fallbackApplied = 'true';
+    img.src = FALLBACK_IMG;
+    setTimeout(() => {
+      if (!img.complete || img.naturalWidth === 0) {
+        img.src = INLINE_SVG_FALLBACK;
+      }
+    }, 100);
+  }
   const dispatch = useAppDispatch();
   const { favoriteAuthors, favoriteCategories, favoriteSources } =
     useAppSelector(s => s.news);
@@ -51,9 +65,18 @@ export function ArticleCard({
             src={article.imageUrl}
             alt={article.title}
             loading="lazy"
+            onError={e => handleImgError(e.currentTarget)}
           />
         ) : (
-          <div className="article-card__placeholder" aria-hidden />
+          <div className="article-card__placeholder" aria-hidden>
+            <img
+              className="article-card__img article-card__img--fallback"
+              src={FALLBACK_IMG}
+              alt="Fallback"
+              loading="lazy"
+              onError={e => handleImgError(e.currentTarget)}
+            />
+          </div>
         )}
         <div className="article-card__actions">
           {FAVORITE_TYPES.map(({ key, icon: Icon }) => (

@@ -30,6 +30,44 @@
     min-width: 10rem;
   }
 
+  .date-input-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .date-input-wrapper--ios {
+    .date-input {
+      background: transparent;
+      position: relative;
+      z-index: 2;
+    }
+  }
+
+  .date-input-placeholder {
+    position: absolute;
+    left: $spacing-3;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $text-muted;
+    font-size: 0.8rem;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .date-input-wrapper:focus-visible .date-input,
+  .date-input-wrapper:focus .date-input {
+    outline: none;
+    border-color: $border-focus;
+    box-shadow: 0 0 0 3px $primary-alpha-10;
+  }
+
+  .date-input-wrapper:focus-visible .date-input-placeholder,
+  .date-input-wrapper:focus .date-input-placeholder {
+    color: $text-secondary;
+  }
+
   .clear-filters-btn {
     margin-left: auto;
     display: flex;
