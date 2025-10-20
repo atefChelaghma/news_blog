@@ -4,10 +4,9 @@ import { Logo } from '../ui/logo';
 import { SearchInput } from '../ui/search';
 import { useDebounce } from '../hooks';
 
-import { setSearch, toggleMobileMenu } from '../../redux/features/news';
+import { setSearch } from '../../redux/features/news';
 import { useAppDispatch, useAppSelector } from '../../redux/store/hooks';
 import { clearSearch, fetchNews } from '../../redux/features/news/newsSlice';
-import { IconFilter } from '@tabler/icons-react';
 import { NewsFilters } from '../../features/news-filter';
 
 export function Header() {
@@ -32,26 +31,19 @@ export function Header() {
         <div className="header-container">
           <div className="header-left">
             <Logo />
-            <nav className="nav">
-              <NavItems />
-            </nav>
+            <SearchInput
+              value={search}
+              onChange={value => dispatch(setSearch(value))}
+              onClear={() => dispatch(clearSearch())}
+            />
           </div>
 
           <div className="header-right">
             <div className="search-container">
-              <SearchInput
-                value={search}
-                onChange={value => dispatch(setSearch(value))}
-                onClear={() => dispatch(clearSearch())}
-              />
+              <nav className="nav">
+                <NavItems />
+              </nav>
             </div>
-
-            <button
-              onClick={() => dispatch(toggleMobileMenu())}
-              className="mobile-menu-btn"
-            >
-              <IconFilter size={24} />
-            </button>
           </div>
         </div>
         <NewsFilters />
