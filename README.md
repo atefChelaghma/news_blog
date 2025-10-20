@@ -1,233 +1,178 @@
 # Modern News Aggregator
 
-A modern news aggregation application built with React, Redux Toolkit, and SCSS following Feature-Sliced Design (FSD) architecture.
+A modern news aggregation application following Feature-Sliced Design (FSD) architecture.
 
-## Prerequisites
+## Tech Stack
 
-### For Local Development
+### Frontend
 
-- **Node.js** (v18 or higher)
-- **npm** or **yarn**
+- **React 19** - UI library with React Compiler optimization
+- **TypeScript 5.5** - Type-safe development
+- **Redux Toolkit 2.0** - State management with Redux Thunk for async operations
+- **SCSS** - Modular styling with variables and mixins
 
-### For Docker Deployment
+### Build & Development
 
-- **Docker** (v20.10 or higher)
-- **Docker Compose** (v2.0 or higher)
+- **Vite 7** - Fast build tool and dev server
+- **Babel React Compiler** - Experimental React optimization
 
-## Getting Started
+### Code Quality
 
-### Option 1: Local Development
+- **ESLint 9** - Code linting
+- **Prettier 3.6** - Code formatting
+- **Husky** - Git hooks
+- **lint-staged** - Pre-commit linting
 
-#### 1. Install Dependencies
+### Deployment
 
-```bash
-npm install
-# or
-yarn install
-```
-
-#### 2. Start Development Server
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Opens [http://localhost:5174](http://localhost:5174)
-
-#### 3. Build for Production
-
-```bash
-npm run build
-# or
-yarn build
-```
-
-### Option 2: Docker Deployment 🐳
-
-#### Quick Start (Production)
-
-```bash
-# Build and run production container
-docker-compose up --build
-
-# Or using npm scripts
-npm run docker:prod
-```
-
-Access the application at [http://localhost:3000](http://localhost:3000)
-
-#### Development with Docker
-
-```bash
-# Run development container with hot reload
-docker-compose --profile dev up --build
-
-# Or using npm scripts
-npm run docker:dev
-```
-
-Access the development server at [http://localhost:5174](http://localhost:5174)
-
-#### Manual Docker Commands
-
-##### Build Docker Image
-
-```bash
-docker build -t modern-news-aggregator .
-
-# Or using npm script
-npm run docker:build
-```
-
-##### Run Docker Container
-
-```bash
-docker run -p 3000:80 modern-news-aggregator
-
-# Or using npm script
-npm run docker:run
-```
-
-##### Stop and Clean Up
-
-```bash
-# Stop containers
-docker-compose down
-
-# Stop and remove everything (containers, images, volumes)
-npm run docker:clean
-```
-
-## Docker Architecture
-
-### Production Setup
-
-- **Multi-stage build**: Optimized for production
-- **Nginx**: Serves static files with compression and caching
-- **Health checks**: Ensures container reliability
-- **Security headers**: Basic security configuration
-- **Port**: 3000 (external) → 80 (internal)
-
-### Development Setup
-
-- **Hot reload**: Live code updates
-- **Volume mounting**: Local code changes reflected immediately
-- **Port**: 5174 (external) → 5174 (internal)
-- **Full development environment**
-
-## Available Scripts
-
-### Local Development
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-
-### Docker Scripts
-
-- `npm run docker:build` - Build Docker image
-- `npm run docker:run` - Run production container
-- `npm run docker:dev` - Run development container
-- `npm run docker:prod` - Run production with Docker Compose
-- `npm run docker:stop` - Stop Docker containers
-- `npm run docker:clean` - Clean up Docker resources
-
-## Environment Variables
-
-Create a `.env` file in the root directory:
-
-```bash
-# API Keys (optional - app works with mock data)
-VITE_NEWS_API_KEY=your_newsapi_key
-VITE_GUARDIAN_API_KEY=your_guardian_key
-VITE_NYT_API_KEY=your_nytimes_key
-
-# Development
-VITE_API_BASE_URL=http://localhost:5174
-```
+- **Docker** - Containerization
+- **Nginx** - Production web server
+- **Multi-stage builds** - Optimized production images
 
 ## Architecture
 
-This project follows **Feature-Sliced Design (FSD)** principles:
+### Feature-Sliced Design (FSD)
 
 ```
 src/
-├── app/           # Application initialization
-├── pages/         # Full page components
-├── widgets/       # Compositional UI blocks
-├── features/      # User interaction features
-├── entities/      # Business logic entities
-└── shared/        # Reusable components and utilities
+├── app/          # Application initialization & global styles
+├── pages/        # Full page components
+├── widgets/      # Compositional UI blocks (NewsFeed)
+├── features/     # User interaction features (filters, article cards)
+├── redux/        # State management (store, slices)
+└── shared/       # Reusable UI components & utilities
 ```
 
-### Tech Stack
+### State Management
 
-- **Frontend**: React 18, TypeScript
-- **State Management**: Redux Toolkit with Redux Thunk
-- **Styling**: SCSS with modular architecture
-- **Build Tool**: Vite
-- **Containerization**: Docker with Nginx
-- **Code Quality**: ESLint, TypeScript
+- **Redux Toolkit** with createSlice and createAsyncThunk
+- **Redux Thunk** for async API calls
+- **TypeScript** typed hooks and selectors
+- **Local Storage** integration for favorites
 
-## Troubleshooting
+### Styling Architecture
 
-### Local Development Issues
+- **SCSS modules** organized by component
+- **BEM methodology** for class naming
+- **Mixins & variables** for consistent theming
+- **Responsive breakpoints** (sm, md, lg, xl)
 
-- **Port 5174 in use**: Kill the process or use a different port
-- **Dependencies issues**: Delete `node_modules` and run `npm install`
-- **Build fails**: Check TypeScript errors with `npm run lint`
+## API Integration
 
-### Docker Issues
+### News Sources
 
-- **Docker build fails**: Ensure Docker is running and has sufficient resources
-- **Port conflicts**: Change ports in `docker-compose.yml`
-- **Container won't start**: Check logs with `docker-compose logs`
-- **Permission issues**: Ensure Docker has file system access
+- **NewsAPI** - General news aggregation
+- **The Guardian** - UK news content
+- **The New York Times** - NYT articles
 
-### Common Docker Commands
+### Proxy Configuration
+
+Development proxy in `vite.config.ts` handles CORS:
+
+- `/api/newsapi` → NewsAPI
+- `/api/guardian` → The Guardian API
+- `/api/nyt` → NYT API
+
+## Prerequisites
+
+### Local Development
+
+- Node.js v18+
+- npm or yarn
+
+### Docker Deployment
+
+- Docker v20.10+
+- Docker Compose v2.0+
+
+## Quick Start
+
+### Local Development
 
 ```bash
-# View running containers
-docker ps
-
-# View container logs
-docker-compose logs news-aggregator
-
-# Execute commands in container
-docker exec -it modern-news-aggregator sh
-
-# Remove all containers and images
-docker system prune -a
+npm install
+npm run dev        # http://localhost:5174
+npm run build      # Production build
 ```
 
-## Performance
-
-### Production Optimizations
-
-- **Gzip compression** enabled
-- **Static asset caching** (1 year)
-- **Multi-stage Docker build** (smaller image size)
-- **Nginx optimization** for React SPA
-- **Health checks** for container monitoring
-
-### Bundle Analysis
+### Docker Production
 
 ```bash
-npm run build
-# Check dist/ folder size and structure
+npm run docker:prod    # http://localhost:3000
+npm run docker:stop
+npm run docker:clean
 ```
 
-## Contributing
+### Docker Development
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test with Docker: `npm run docker:dev`
-5. Submit a pull request
+```bash
+npm run docker:dev     # http://localhost:5174 with hot reload
+```
+
+## Environment Variables
+
+```bash
+VITE_NEWS_API_KEY=your_newsapi_key
+VITE_GUARDIAN_API_KEY=your_guardian_key
+VITE_NYT_API_KEY=your_nytimes_key
+```
+
+## Scripts
+
+### Development
+
+- `dev` - Start dev server
+- `build` - Production build
+- `lint` - Run ESLint
+- `lint:fix` - Fix linting issues
+- `prettier` - Check formatting
+- `prettier:fix` - Fix formatting
+- `format` - Fix both linting and formatting
+
+### Docker
+
+- `docker:build` - Build image
+- `docker:run` - Run container
+- `docker:dev` - Development with hot reload
+- `docker:prod` - Production deployment
+- `docker:stop` - Stop containers
+- `docker:clean` - Remove all Docker resources
+
+## Production Features
+
+### Docker Optimization
+
+- Multi-stage build (Node → Nginx)
+- Gzip compression
+- Static asset caching (1 year)
+- Security headers
+- Health checks
+- SPA routing support
+
+### Performance
+
+- React Compiler optimization
+- Code splitting
+- Lazy loading
+- Debounced search
+- Optimized re-renders
+
+## Key Features
+
+- **Multi-source aggregation** - NewsAPI, Guardian, NYT
+- **Advanced filtering** - By source, category, date range
+- **Smart search** - Debounced with 3-character minimum
+- **Favorites system** - By author, category, and source
+- **Responsive design** - Mobile-first approach
+- **Dark mode ready** - SCSS variable system
+- **Type-safe** - Full TypeScript coverage
+
+## Browser Support
+
+- Chrome/Edge (latest)
+- Firefox (latest)
+- Safari (latest)
 
 ## License
 
-MIT License - see LICENSE file for details.
+MIT
