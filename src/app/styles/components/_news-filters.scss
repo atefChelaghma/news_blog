@@ -46,7 +46,6 @@
   }
 
   .date-input-placeholder {
-    @include input-base;
     position: absolute;
     left: $spacing-3;
     top: 50%;
