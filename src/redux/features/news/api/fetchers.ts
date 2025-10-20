@@ -100,7 +100,10 @@ export async function fetchFromNYT(filters: NewsFilters): Promise<Article[]> {
   return data.response.docs
     .slice(0, 10)
     .map((article: NYTApiArticle): Article => {
-      const imageUrl = article.multimedia?.find(item => item.url)?.url;
+      const imageUrl =
+        article.multimedia && article.multimedia.length > 0
+          ? article.multimedia[0].url
+          : undefined;
 
       return {
         id: `nyt-${article._id}`,
