@@ -120,11 +120,29 @@ npm run docker:dev     # http://localhost:5174 with hot reload
 
 ## Environment Variables
 
+Create a `.env` file in the root directory:
+
 ```bash
 VITE_NEWS_API_KEY=your_newsapi_key
 VITE_GUARDIAN_API_KEY=your_guardian_key
 VITE_NYT_API_KEY=your_nytimes_key
 ```
+
+### Getting API Keys
+
+1. **NewsAPI** - [https://newsapi.org/register](https://newsapi.org/register)
+2. **The Guardian** - [https://open-platform.theguardian.com/access/](https://open-platform.theguardian.com/access/)
+3. **NYT** - [https://developer.nytimes.com/get-started](https://developer.nytimes.com/get-started)
+
+### Docker Environment Configuration
+
+The Docker setup automatically loads environment variables from your `.env` file:
+
+- **Production build**: API keys are baked into the build at compile time via ARG/ENV
+- **Development mode**: Environment variables are passed to the container at runtime
+- **docker-compose**: Automatically reads `.env` file from the project root
+
+**Important**: The `.env` file is excluded from the Docker image via `.dockerignore` for security.
 
 ## Testing
 
@@ -219,14 +237,114 @@ src/
 
 ## Production Features
 
+### Docker Deployment
+
+#### Prerequisites
+
+- Docker v20.10+
+- Docker Compose v2.0+
+- `.env` file with API keys (see Environment Variables section)
+
+#### Quick Start with Docker
+
+```bash
+# 1. Make sure you have a .env file with your API keys
+cp .env.example .env
+# Edit .env with your actual API keys
+
+# 2. Build and start the production container
+docker-compose up -d news-aggregator
+
+# 3. Access the application
+# http://localhost:3000
+
+# 4. Check container status and health
+docker-compose ps
+
+# 5. View logs
+docker-compose logs -f news-aggregator
+
+# 6. Stop the container
+docker-compose down
+```
+
+#### Development Mode with Docker
+
+```bash
+# Start development server with hot reload
+docker-compose --profile dev up news-aggregator-dev
+
+# Access at http://localhost:5174
+```
+
+#### Manual Docker Commands
+
+```bash
+# Build image with API keys from .env
+docker build \
+  --build-arg VITE_NEWS_API_KEY=${VITE_NEWS_API_KEY} \
+  --build-arg VITE_GUARDIAN_API_KEY=${VITE_GUARDIAN_API_KEY} \
+  --build-arg VITE_NYT_API_KEY=${VITE_NYT_API_KEY} \
+  -t news-aggregator .
+
+# Run container
+docker run -d -p 3000:80 --name news-app news-aggregator
+
+# View logs
+docker logs -f news-app
+
+# Stop and remove
+docker stop news-app && docker rm news-app
+```
+
 ### Docker Optimization
 
 - Multi-stage build (Node → Nginx)
 - Gzip compression
 - Static asset caching (1 year)
-- Security headers
-- Health checks
-- SPA routing support
+- Security headers (X-Frame-Options, X-Content-Type-Options, X-XSS-Protection)
+- Health checks (HTTP probe on port 80)
+- SPA routing support (fallback to index.html)
+- Minimal production image (~40MB)
+
+### How Environment Variables Work in Docker
+
+#### Production Build (`Dockerfile`)
+
+```dockerfile
+# Build arguments receive values from docker-compose.yml
+ARG VITE_NEWS_API_KEY
+ARG VITE_GUARDIAN_API_KEY
+ARG VITE_NYT_API_KEY
+
+# Set as environment variables during build
+ENV VITE_NEWS_API_KEY=$VITE_NEWS_API_KEY
+ENV VITE_GUARDIAN_API_KEY=$VITE_GUARDIAN_API_KEY
+ENV VITE_NYT_API_KEY=$VITE_NYT_API_KEY
+
+# Vite embeds these into the JavaScript bundle at build time
+RUN npm run build
+```
+
+#### Docker Compose Configuration
+
+```yaml
+services:
+  news-aggregator:
+    build:
+      args:
+        # Reads from .env file automatically
+        - VITE_NEWS_API_KEY=${VITE_NEWS_API_KEY}
+        - VITE_GUARDIAN_API_KEY=${VITE_GUARDIAN_API_KEY}
+        - VITE_NYT_API_KEY=${VITE_NYT_API_KEY}
+```
+
+#### Security Notes
+
+- `.env` file is excluded via `.dockerignore`
+- API keys are embedded in the JavaScript bundle (client-side app)
+- For sensitive server-side operations, use a backend API proxy
+- Never commit `.env` files to version control
 
 ### Performance
 
