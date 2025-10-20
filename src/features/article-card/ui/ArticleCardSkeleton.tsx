@@ -1,34 +1,25 @@
-import { cn } from '../../../lib/utils';
-import { ArticleCardSkeletonProps } from './types';
-
-export function ArticleCardSkeleton({ featured }: ArticleCardSkeletonProps) {
+export function ArticleCardSkeleton() {
   return (
-    <div className={cn('skeleton', featured ? 'skeleton--featured' : '')}>
-      <div className="skeleton-content">
-        <div className="skeleton-image" />
+    <div className="article-card-skel">
+      <div className="article-card-skel__media" />
 
-        <div className="skeleton-text">
-          <div className="skeleton-line skeleton-line--short" />
-          <div className="skeleton-line skeleton-line--medium" />
+      <div className="article-card-skel__body">
+        <div className="article-card-skel__badges">
+          <span className="article-card-skel__badge" />
+          <span className="article-card-skel__badge" />
+        </div>
 
-          <div
-            className={cn(
-              'skeleton-title',
-              featured ? 'skeleton-title--featured' : ''
-            )}
-          />
+        <div className="article-card-skel__title" />
 
-          {featured && (
-            <>
-              <div className="skeleton-line skeleton-line--full" />
-              <div className="skeleton-line skeleton-line--medium" />
-            </>
-          )}
+        <div className="article-card-skel__line article-card-skel__line--full" />
+        <div className="article-card-skel__line article-card-skel__line--md" />
 
-          <div className="skeleton-meta">
-            <div className="skeleton-meta-item" />
-            <div className="skeleton-meta-item" />
+        <div className="article-card-skel__meta">
+          <div className="article-card-skel__author">
+            <span className="article-card-skel__avatar" />
+            <span className="article-card-skel__line article-card-skel__line--sm" />
           </div>
+          <div className="article-card-skel__line article-card-skel__line--date" />
         </div>
       </div>
     </div>

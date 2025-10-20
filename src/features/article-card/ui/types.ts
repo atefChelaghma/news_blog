@@ -23,7 +23,3 @@ export const FAVORITE_TYPES = [
   { key: 'categories', icon: IconHash },
   { key: 'sources', icon: IconGlobe },
 ] as const;
-
-export interface ArticleCardSkeletonProps {
-  featured?: boolean;
-}

@@ -1,83 +1,114 @@
 @use '../variables' as *;
 @use '../mixins' as *;
 
-.skeleton {
-  @include card-base;
-  position: relative;
+$skel-bg: #e5e7eb;
 
+.article-card-skel {
+  @include card-base;
+  background: $bg-white;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-xl;
+  overflow: hidden;
+  animation: skel-pulse 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   &--featured {
     grid-column: span 2;
     grid-row: span 2;
+
+    .article-card-skel__title--lg {
+      height: 2rem;
+    }
   }
 
-  .skeleton-content {
-    padding: $spacing-6;
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  &__media {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: $skel-bg;
+  }
 
-    .skeleton-image {
-      aspect-ratio: 16/9;
+  &__body {
+    padding: $spacing-4 $spacing-5 $spacing-5;
+  }
+
+  &__badges {
+    display: flex;
+    gap: $spacing-2;
+    margin-bottom: $spacing-3;
+  }
+
+  &__badge {
+    width: 72px;
+    height: 28px;
+    border-radius: 999px;
+    background: $skel-bg;
+  }
+
+  &__title {
+    display: block;
+    width: 100%;
+    background: $skel-bg;
+    border-radius: $border-radius-sm;
+    margin-bottom: $spacing-4;
+
+    &--md {
+      height: 1.5rem;
+    }
+    &--lg {
+      height: 1.75rem;
+    }
+  }
+  &__line {
+    display: block;
+    height: 0.75rem;
+    background: $skel-bg;
+    border-radius: $border-radius-sm;
+    margin-bottom: $spacing-2;
+
+    &--full {
       width: 100%;
-      background-color: #e5e7eb;
-      border-radius: $border-radius-lg;
-      margin-bottom: $spacing-4;
     }
-
-    .skeleton-text {
-      display: flex;
-      flex-direction: column;
-      gap: $spacing-2;
-
-      .skeleton-line {
-        height: 0.75rem;
-        background-color: #e5e7eb;
-        border-radius: $border-radius-sm;
-
-        &--short {
-          width: 60%;
-        }
-
-        &--medium {
-          width: 80%;
-        }
-
-        &--full {
-          width: 100%;
-        }
-      }
-
-      .skeleton-title {
-        height: 1.5rem;
-        background-color: #e5e7eb;
-        border-radius: $border-radius-sm;
-        margin: $spacing-3 0;
-
-        &--featured {
-          height: 2rem;
-        }
-      }
-
-      .skeleton-meta {
-        display: flex;
-        gap: $spacing-4;
-        margin-top: $spacing-4;
-
-        .skeleton-meta-item {
-          height: 0.75rem;
-          width: 4rem;
-          background-color: #e5e7eb;
-          border-radius: $border-radius-sm;
-        }
-      }
+    &--md {
+      width: 80%;
     }
+    &--sm {
+      width: 120px;
+    }
+    &--date {
+      width: 96px;
+      height: 0.9rem;
+    }
+  }
+
+  /* Meta row */
+  &__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-4;
+    margin-top: $spacing-4;
+  }
+
+  &__author {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    background: #111827;
+    opacity: 0.15;
+    flex: 0 0 24px;
   }
 }
 
-@keyframes pulse {
+@keyframes skel-pulse {
   0%,
   100% {
     opacity: 1;
   }
   50% {
-    opacity: 0.5;
+    opacity: 0.55;
   }
 }

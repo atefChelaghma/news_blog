@@ -11,7 +11,7 @@ export function ArticleCard({
 }: ArticleCardProps) {
   const dispatch = useAppDispatch();
   const { favoriteAuthors, favoriteCategories, favoriteSources } =
-    useAppSelector(state => state.news);
+    useAppSelector(s => s.news);
 
   const favoritesMap = {
     authors: favoriteAuthors,
@@ -19,88 +19,92 @@ export function ArticleCard({
     sources: favoriteSources,
   };
 
-  const isFavorite = (type: keyof typeof favoritesMap) => {
-    return favoritesMap[type].some((item: Article) => item.id === article.id);
-  };
+  const isFavorite = (type: keyof typeof favoritesMap) =>
+    favoritesMap[type].some((it: Article) => it.id === article.id);
 
   const handleToggleFavorite = (
     type: keyof typeof favoritesMap,
-    event: React.MouseEvent
+    e: React.MouseEvent
   ) => {
-    event.preventDefault();
+    e.preventDefault();
     dispatch(toggleFavorite({ type, article }));
   };
 
-  const getButtonClass = (type: keyof typeof favoritesMap, isFav: boolean) => {
-    const isActiveTab = activeTab === type;
-    if (isFav) return 'favorite-button favorite-button--favorited';
-    if (isActiveTab) return 'favorite-button favorite-button--active-tab';
-    return 'favorite-button favorite-button--default';
-  };
+  const favBtnClass = (type: keyof typeof favoritesMap, isFav: boolean) =>
+    cn(
+      'article-card__action',
+      isFav
+        ? 'article-card__action--favorited'
+        : activeTab === type
+          ? 'article-card__action--active-tab'
+          : 'article-card__action--default'
+    );
 
   return (
     <article
-      className={cn('article-card', featured ? 'article-card--featured' : '')}
+      className={cn('article-card', featured && 'article-card--featured')}
     >
-      <div className="favorite-buttons">
-        {FAVORITE_TYPES.map(({ key, icon: Icon }) => (
-          <button
-            key={key}
-            onClick={e =>
-              handleToggleFavorite(key as keyof typeof favoritesMap, e)
-            }
-            className={getButtonClass(
-              key as keyof typeof favoritesMap,
-              isFavorite(key as keyof typeof favoritesMap)
-            )}
-          >
-            <Icon className="h-4 w-4" />
-          </button>
-        ))}
+      <div className="article-card__media">
+        {article.imageUrl ? (
+          <img
+            className="article-card__img"
+            src={article.imageUrl}
+            alt={article.title}
+            loading="lazy"
+          />
+        ) : (
+          <div className="article-card__placeholder" aria-hidden />
+        )}
+        <div className="article-card__actions">
+          {FAVORITE_TYPES.map(({ key, icon: Icon }) => (
+            <button
+              key={key}
+              className={favBtnClass(
+                key as keyof typeof favoritesMap,
+                isFavorite(key as keyof typeof favoritesMap)
+              )}
+              onClick={e =>
+                handleToggleFavorite(key as keyof typeof favoritesMap, e)
+              }
+              aria-label={`Toggle favorite: ${key}`}
+            >
+              <Icon className="article-card__action-icon" />
+            </button>
+          ))}
+        </div>
       </div>
-
       <a
         href={article.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="article-link"
+        className="article-card__link"
       >
-        <div className="article-image">
-          {article.imageUrl ? (
-            <img src={article.imageUrl} alt={article.title} loading="lazy" />
-          ) : (
-            <div className="placeholder" />
-          )}
-          <div className="gradient-overlay" />
-        </div>
-
-        <div className="article-content">
-          <div className="metadata">
-            <span className="category-badge">{article.category}</span>
-            <span className="source">{article.source}</span>
+        <div className="article-card__body">
+          <div className="article-card__badges">
+            <span className="article-card__badge article-card__badge--category">
+              {article.category}
+            </span>
+            <span className="article-card__badge article-card__badge--source">
+              {article.source}
+            </span>
           </div>
 
           <h2
             className={cn(
-              'article-title',
-              featured ? 'article-title--featured' : 'article-title--normal'
+              'article-card__title',
+              featured ? 'article-card__title--lg' : 'article-card__title--md'
             )}
           >
             {article.title}
           </h2>
-
-          {featured && (
-            <p className="article-description">{article.description}</p>
-          )}
-
-          <div className="article-meta">
-            {article.author && (
-              <span className="author">
-                <span className="author-avatar" />
-                {article.author}
-              </span>
-            )}
-            <time>{format(new Date(article.publishedAt), 'MMM d, yyyy')}</time>
+          <div className="article-card__meta">
+            <span className="article-card__author">
+              <span className="article-card__avatar" />
+              {article.author ?? 'Unknown'}
+            </span>
+            <time className="article-card__date">
+              {format(new Date(article.publishedAt), 'MMM d, yyyy')}
+            </time>
           </div>
         </div>
       </a>

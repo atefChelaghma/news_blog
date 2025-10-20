@@ -1,5 +1,4 @@
 import { Header } from '../../shared/components';
-import { NewsFilters } from '../../features/news-filter';
 import { NewsFeed } from '../../widgets/news-feed';
 
 export function Home() {
@@ -8,7 +7,6 @@ export function Home() {
       <Header />
       <main className="main-content">
         <div className="content-wrapper">
-          {/* <NewsFilters /> */}
           <NewsFeed />
         </div>
       </main>

@@ -58,8 +58,7 @@ export function NewsFeed() {
   if (isLoading) {
     return (
       <div className="news-feed">
-        <ArticleCardSkeleton featured />
-        {[...Array(5)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <ArticleCardSkeleton key={i} />
         ))}
       </div>

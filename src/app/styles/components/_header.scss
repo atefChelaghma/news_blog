@@ -220,7 +220,6 @@
 @use '../variables' as *;
 @use '../mixins' as *;
 
-// header.scss (keep layout only; nav-item styles live in _navItem.scss)
 .header {
   background-color: $bg-white;
   border-bottom: 1px solid $border-color;
